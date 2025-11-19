@@ -1,0 +1,19 @@
+
+@use '../variables' as *;
+
+.question-to-link{
+  display: inline;
+  color: $color-text-body;
+  // font-size: $font-size-sm;
+  padding-right: 10px;
+}
+.auth-link {
+  color: $color-link; 
+  // text-decoration: none;
+  // font-weight: $font-size-sm;
+
+  &:hover {
+    color: $color-link-hover; 
+    text-decoration: underline; 
+  }
+}

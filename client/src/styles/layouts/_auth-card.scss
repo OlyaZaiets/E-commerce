@@ -1,0 +1,11 @@
+@use '../variables' as *;
+
+.auth-container {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  border-radius: $radius-m;
+  background: $color-cream-light-registration-login;
+  border: solid 2px $color-border-med;
+  backdrop-filter: blur(2px);
+
+}

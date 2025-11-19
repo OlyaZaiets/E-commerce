@@ -1,0 +1,18 @@
+@use '../variables' as *;
+
+.quick-registration {
+  // text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  // border: solid 2px black;
+
+  &-title {
+    font-size: 18px;
+    // margin-bottom: 0.5rem;
+    color: $color-text-body; 
+  }
+}

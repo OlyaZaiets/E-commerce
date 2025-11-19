@@ -1,0 +1,13 @@
+@use '../variables' as *;
+
+.auth-wrapper {
+  background-color:  $color-main-light;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr;
+  grid-template-rows: 0.1fr 1fr 0.1fr;
+  // border: solid 2px red;
+}
+
+.wrapper {
+  padding: 40px;
+}

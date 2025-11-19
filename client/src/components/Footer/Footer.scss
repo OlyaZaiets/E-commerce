@@ -1,0 +1,63 @@
+@use '../../styles/variables' as *;
+
+.footer-container {
+  background-color: $color-footer-dark;
+
+}
+
+.footer-inner {
+  height: $footer-height;
+  color: $color-text-on-dark;
+  // border: solid 2px red;
+  // border: solid 1px orange;
+  margin: 0 auto;
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+}
+
+.footer-title {
+  font-size: $size-text-m;
+  padding: 10px 0;
+}
+
+.footer-info-container {
+  display: flex;
+}
+
+.contact-info, .dev-info {
+  flex: 1;
+}
+
+.contact-info {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 0.5fr 3.5fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+
+  a {
+    text-decoration: none;
+    font-size: $size-text-s;
+    color: $color-text-on-dark;
+  }
+}
+
+.contact-info-LinkedIn {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.contact-info-github {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+.dev-info {
+  // border: solid 1px orangered;
+
+  h3 {
+    padding: 10px 0;
+  }
+}

@@ -1,0 +1,9 @@
+@use '../variables' as *;
+
+.auth-title-text {
+  h1, p {
+    color: $color-heading;
+    margin: 0;
+    text-align: center;
+  }
+}

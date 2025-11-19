@@ -1,0 +1,13 @@
+@use '../variables' as *;
+
+.user-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  // label {
+  //   margin: 0;
+  //   text-align: start;
+  // }
+
+}

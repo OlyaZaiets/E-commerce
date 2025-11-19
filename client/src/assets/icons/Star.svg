@@ -1,0 +1,22 @@
+              <svg
+                width="150"
+                height="150"
+                viewBox="0 0 150 150"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  stroke="#F4D35E"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M75 10L95 55L140 75L95 95L75 140L55 95L10 75L55 55L75 10Z" />
+                  <path d="M75 30L88 60L120 75L88 90L75 120L62 90L30 75L62 60L75 30Z" />
+                  <circle cx="75" cy="75" r="10" />
+                  <circle cx="75" cy="38" r="3" />
+                  <circle cx="112" cy="75" r="3" />
+                  <circle cx="75" cy="112" r="3" />
+                  <circle cx="38" cy="75" r="3" />
+                </g>
+              </svg>

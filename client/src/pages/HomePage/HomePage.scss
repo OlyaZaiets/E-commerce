@@ -1,0 +1,45 @@
+@use '../../styles/variables' as *;
+
+.homepage-container {
+  background-color:  $color-main-light;
+  width: 100%;
+  border: solid 2px green
+}
+
+.homepage-inner {
+  margin: 0 auto;
+  max-width: 1280px; 
+  padding: 0 1.5rem;      
+}
+
+// .homepage-slider, .homepage-idea {
+//   flex: 1;
+// }
+
+.homepage-idea {
+  h3 {
+    color: $color-heading;
+    font-size: $size-text-l;
+    padding-top: $space-xl;
+    text-align: center;
+  }
+}
+
+.homepage-text {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr ;
+
+  p {
+      grid-column: 2/3;
+  }
+}
+
+.idea-icon-star {
+  grid-column: 1/2;
+  grid-row: 1/3;
+}
+
+.idea-icon-candle {
+  grid-column: 3/-1;
+  grid-row: 1/3;
+}

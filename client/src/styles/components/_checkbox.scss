@@ -1,0 +1,58 @@
+@use '../variables' as *;
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 1rem 0;
+
+  position: relative;
+
+  .checkbox-input {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-checkbox-input;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    background-color: $color-background-checkbox-cream-light;;      
+  }
+
+  /* Анімація галочки */
+  .checkbox-input:checked::after {
+    content: "✔";
+    font-size: 14px;
+    color: $color-checkbox-check-mark;
+    position: absolute;
+    left: 3px;
+    top: -1px;
+  }
+
+  .checkbox-input:checked {
+    background-color: $color-checkbox-bg-focus;
+    border-color: $color-checkbox-border-focus;
+  }
+
+  .checkbox-label {
+    font-size: 0.95rem;
+    color: $color-text-body;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .privacy-link {
+    color: $color-link;
+    text-decoration: none;
+    border-bottom: 1px solid $color-link;
+    font-weight: 500;
+
+    &:hover {
+      border-bottom-color: $color-link-hover;
+    }
+  }
+}
+

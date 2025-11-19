@@ -1,0 +1,23 @@
+@use '../variables' as *;
+
+.input-text {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid $color-input-border-light; 
+  background-color: $color-background-input-cream-light;       
+  color: $color-input-text;
+  transition: 0.2s ease;
+
+  &::placeholder {
+    color: $color-input-placeholder;
+  }
+
+  &:focus {
+    outline: none;
+    border: solid 1px $color-input-border-focus;
+    background-color: $color-input-bg-focus;  
+    box-shadow: 0 0 0 3px $color-input-box-shadow;
+  }
+}

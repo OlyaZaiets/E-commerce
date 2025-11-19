@@ -1,0 +1,53 @@
+@use '../../styles/variables' as *;
+
+.header-container {
+  background-color:  $color-header-brown;
+  // border: solid 2px purple;
+}
+
+.header-inner {
+  height: $header-height;
+  color: $color-text-on-dark;
+  // border: solid 2px red;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+}
+
+.header-logo, .header-nav, .header-icons-container {
+  flex: 1;
+}
+
+.header-logo h2 {
+  font-size: $size-text-m;
+  // border: solid 1px yellow;
+  display: flex;
+  justify-content: center;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-evenly;
+  // border: solid 1px pink;
+
+
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: $size-text-m;
+  color: $color-text-on-dark;
+}
+
+.header-icons-container {
+  // border: solid 1px blueviolet;
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.header-icons {
+  color: $color-text-on-dark;
+  size: 32px;
+}

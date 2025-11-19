@@ -1,0 +1,36 @@
+@use '../variables' as *;
+
+
+.title-line {
+  width: 100%;
+  height: 1px;
+  background-color: $color-cream-separate-liner;
+  margin: 0.3rem auto 1.5rem auto;
+}
+
+.or-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  font-size: 14px;
+  color: $color-text-body;
+  font-size: 14px;
+
+  span {
+    background-color: $color-cream-light-registration-login;
+    z-index: 1;
+    padding: 0 0.5rem;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: $color-cream-separate-liner;
+  }
+
+  &::before { margin-right: 0.8rem; }
+  &::after { margin-left: 0.8rem; }
+}
