@@ -1,0 +1,20 @@
+@use '../variables' as *;
+
+.input-error {
+  border: 1px solid $color-text-danger !important; 
+  background-color: rgba($color-text-danger, 0.10) !important;
+  box-shadow: 0 0 0 3px rgba($color-text-danger, 0.18) !important;
+}
+
+.input-error:focus,
+.input-error:focus-within {
+  border-color: $color-text-danger !important;
+  background-color: $color-error-focus-background !important;
+  box-shadow: 0 0 0 4px rgba($color-text-danger, 0.35) !important;
+}
+
+.error-message {
+  color: $color-text-danger;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}

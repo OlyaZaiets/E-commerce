@@ -1,53 +1,24 @@
 import { Link } from 'react-router-dom';
 import './Login.scss';
 import { GoogleLogo } from 'phosphor-react';
+import { useForm } from 'react-hook-form';
+import { loginSchema, type LoginInputForm } from '../../schemas/LoginSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+
 // import { useAuth } from '../../context/AuthContext';
-// import { useState } from 'react';
+
+
 
 export const Login = () => {
   // const { login } = useAuth();
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [error, setError] = useState('');
 
-// const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-//   setError('');
-
-//   try {
-//     await login(email, password);
-//   } catch (error: any) {
-//     let message = 'An unexpected error occurred. Please try again.';
-
-//     if (error.code) {
-//       switch (error.code) {
-//         case 'auth/invalid-email':
-//           message = 'Invalid email address format.';
-//           break;
-//         case 'auth/user-disabled':
-//           message = 'This account has been disabled.';
-//           break;
-//         case 'auth/user-not-found':
-//           message = 'No account found with this email.';
-//           break;
-//         case 'auth/wrong-password':
-//           message = 'Incorrect password. Please try again.';
-//           break;
-//         case 'auth/invalid-credential':
-//           message = 'Invalid email or password.';
-//           break;
-//         case 'auth/too-many-requests':
-//           message = 'Too many failed attempts. Please wait a few minutes.';
-//           break;
-//         default:
-//           message = 'Login failed. Please check your credentials.';
-//       }
-//     }
-
-//     setError(message); 
-//     console.error('Login error:', error);
-//   }
-// };
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginInputForm>({
+    resolver: zodResolver(loginSchema),
+  });
+  const onSubmit = (data: LoginInputForm) => {
+    console.log(data);
+  }
 
   return (
     <div className='auth-wrapper'>
@@ -61,7 +32,7 @@ export const Login = () => {
           <div className="quick-registration">
             <p className="quick-registration-title">Quick login via:</p>
 
-            <button className="google-btn">
+            <button type="button" className="google-btn">
               <GoogleLogo size={24} />
               <span>Google</span>
             </button>
@@ -69,28 +40,31 @@ export const Login = () => {
           <div className="or-separator">
             <span>or</span>
           </div>
-
-
-
           <form 
             className='user-auth'
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
           >
-          {/* {error && <p className='error-message fade-in'>{error}</p>} */}
             <input 
               type='email' 
+              autoComplete="email"
               placeholder='Email*'
-              className='input-text'
-              // onChange={(e) => setEmail(e.target.value)}
-              required
+              className={`input-text ${errors.email ? 'input-error' : ''}`}
+              {...register('email')}
               />
+              {errors.email && (
+                <p className="error-message">{errors.email.message}</p>
+              )}
             <input 
-              type='password' 
+              type='password'
+              autoComplete="current-password"
               placeholder='Password*'
-              className='input-text'
-              // onChange={(e) => setPassword(e.target.value)}
-              required
+              className={`input-text ${errors.password ? 'input-error' : ''}`}
+              {...register('password')}
             />
+            {errors.password && (
+              <p className="error-message">{errors.password.message}</p>
+            )}
+
             <button type='submit' className='dark-btn'>Log In</button>
           </form>
           <p className='question-to-link'>New to Ukrainian Taste?</p> 

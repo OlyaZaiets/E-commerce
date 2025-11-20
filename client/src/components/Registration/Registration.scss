@@ -1,7 +1,61 @@
 @use '../../styles/variables' as *;
 
+.phone-input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: $color-background-input-cream-light;
+  border: 1px solid $color-input-border-light;
+  border-radius: $radius-s;
+  padding: 0 $space-m;
+  height: 36px;
 
+  &:focus-within {
+    border-color: $color-input-border-focus;
+    background-color: $color-input-bg-focus;
+    box-shadow: 0 0 0 3px $color-input-box-shadow;
+  }
+}
 
+.PhoneInputCountryIcon,
+.PhoneInputCountryIconImg {
+  display: none !important;
+}
+
+.phone-input .PhoneInputCountry {
+  padding: 0;
+  margin-right: 6px;
+  font-size: 0.9rem;
+  color: $color-text-muted;
+}
+
+.phone-input .PhoneInputCountrySelect {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  max-width: 150px; // hardcode
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  &:focus {
+    outline: none;
+  }
+}
+.phone-input .PhoneInputInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: $color-input-text;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
 
 
 

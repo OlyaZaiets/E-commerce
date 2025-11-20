@@ -1,15 +1,29 @@
 @use '../../styles/variables' as *;
 
-.form-group {
+
+.main-user-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 40px;
+}
+
+.user-first-name, .user-last-name, 
+.user-email, .user-phone-number, .user-gender, .user-birthday {
   display: flex;
   flex-direction: column;
   gap: $space-xs;
+  // border: solid 2px red;
 
   label {
     font-size: $size-text-s;
     color: $color-text-body;
     font-weight: 500;
   }
+}
+
+
+
+.user-gender {
 
   select {
     padding: $space-s $space-m;
@@ -30,18 +44,7 @@
   }
 }
 
-.dob-group {
-  display: flex;
-  flex-direction: column;
-  gap: $space-xs;
-
-  label {
-    font-size: $size-text-s;
-    color: $color-text-body;
-    font-weight: 500;
-    margin-bottom: $space-xs;
-  }
-
+.user-birthday {
   .dob-selects {
     display: flex;
     gap: $space-s;
@@ -55,7 +58,7 @@
       font-size: $size-text-s;
       cursor: pointer;
       outline: none;
-      width: 90px;   // 📌 ширина як в UI
+      width: 120px;   // hardcode
       transition: border 0.2s ease, box-shadow 0.2s ease;
 
       &:focus {
