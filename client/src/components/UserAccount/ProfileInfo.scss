@@ -1,14 +1,15 @@
 @use '../../styles/variables' as *;
 
 
-.main-user-info {
+.main-user-info, .change-password-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px 40px;
+  gap: 10px 40px;
 }
 
 .user-first-name, .user-last-name, 
-.user-email, .user-phone-number, .user-gender, .user-birthday {
+.user-email, .user-phone-number,
+.user-gender, .user-birthday, .old-password, .new-password {
   display: flex;
   flex-direction: column;
   gap: $space-xs;
@@ -21,52 +22,29 @@
   }
 }
 
+.select-text {
+  padding: $space-s $space-m;
+  border: 1px solid $color-input-border-light;
+  background-color: $color-background-input-cream-light;
+  border-radius: $radius-s;
+  color: $color-input-text;
+  font-size: $size-text-s;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 
-
-.user-gender {
-
-  select {
-    padding: $space-s $space-m;
-    border: 1px solid $color-input-border-light;
-    background-color: $color-background-input-cream-light;
-    border-radius: $radius-s;
-    color: $color-input-text;
-    font-size: $size-text-s;
-    cursor: pointer;
-    outline: none;
-    transition: border 0.2s ease, box-shadow 0.2s ease;
-
-    &:focus {
-      border: 1px solid $color-input-border-focus;
-      box-shadow: 0 0 0 3px $color-input-box-shadow;
-      background-color: $color-input-bg-focus;
-    }
+  &:focus {
+    border-color: $color-input-border-focus;
+    box-shadow: 0 0 0 3px $color-input-box-shadow;
+    background-color: $color-input-bg-focus;
   }
 }
 
-.user-birthday {
-  .dob-selects {
-    display: flex;
-    gap: $space-s;
-
-    select {
-      padding: $space-s $space-m;
-      border: 1px solid $color-input-border-light;
-      background-color: $color-background-input-cream-light;
-      border-radius: $radius-s;
-      color: $color-input-text;
-      font-size: $size-text-s;
-      cursor: pointer;
-      outline: none;
-      width: 120px;   // hardcode
-      transition: border 0.2s ease, box-shadow 0.2s ease;
-
-      &:focus {
-        border: 1px solid $color-input-border-focus;
-        box-shadow: 0 0 0 3px $color-input-box-shadow;
-        background-color: $color-input-bg-focus;
-      }
-    }
-  }
+.dob-selects {
+  display: flex;
+  gap: $space-s;
 }
 
+.old-password, .new-password {
+  grid-column: 1/2;
+}

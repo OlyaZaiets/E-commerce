@@ -7,7 +7,6 @@ export const registrationSchema = z.object({
   phone: z.string().refine(isValidPhoneNumber, {
     message: "Invalid phone number",
   }),
-
   password: z
     .string()
     .min(6, { message: 'Minimum 6 characters' }),
