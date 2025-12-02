@@ -1,8 +1,13 @@
 import {  NavLink } from 'react-router-dom';
 import './Header.scss';
 import { Heart, MagnifyingGlass, ShoppingCartSimple, User} from 'phosphor-react';
+import { useAuth } from '../../context/useAuth';
+
+
 
 export const Header = () => {
+  const { isLoggedInUser } = useAuth();
+
   return(
     <div className="header-container">
       <div className='container header-inner'>
@@ -34,7 +39,11 @@ export const Header = () => {
           <NavLink to='cart' className='header-icons' title='Cart'>
             <ShoppingCartSimple size={32} />
           </NavLink>
-          <NavLink className='header-icons' to='/login' title='Login'>
+          <NavLink 
+            className='header-icons' 
+            to={isLoggedInUser ? '/account': '/login' }
+            title={isLoggedInUser ? 'Account' : 'Login'}
+          >
             <User size={32} />
           </NavLink>
         </div>

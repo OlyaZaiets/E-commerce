@@ -2,22 +2,62 @@ import { useForm } from 'react-hook-form';
 import './ProfileInfo.scss';
 import { profileInfoSchema, type ProfileInputInput } from '../../schemas/ProfileInfoSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import PhoneInput from 'react-phone-number-input/input';
+import PhoneInput from 'react-phone-number-input';
 import { useEffect } from 'react';
+import { useAuth } from '../../context/useAuth';
+
+
+
 
 
 export const ProfileInfo = () => {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<ProfileInputInput>({
+  const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<ProfileInputInput>({
           resolver: zodResolver(profileInfoSchema),
+          defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            gender: '',
+            birthday: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            
+          }
   });
 
+  const { user } = useAuth();
   const onSubmit = (data: ProfileInputInput) => {
     console.log(data)
   }
 
+
+
   useEffect(() => {
     register('phone');
   }, [register]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const [firstName, ...lastParts] = user.fullName?.split(' ') || [];
+
+    reset({
+      firstName: firstName || '',
+      lastName: lastParts.join(' ') || '',
+      email: user.email || '',
+      phone: user.phone || '',
+      gender: user.gender || '',
+      birthday: {
+        day: user.birthday?.day || '',
+        month: user.birthday?.month || '',
+        year: user.birthday?.year || '',
+      },
+    });
+  }, [user, reset]);
+
   
   return(
     <div>
@@ -64,8 +104,9 @@ export const ProfileInfo = () => {
             <label htmlFor='phone'>Phone number</label>
             <PhoneInput
               id='phone'
+              value={watch('phone')}
               defaultCountry='DE'
-              international
+              countryCallingCodeEditable={false}
               className={`input-text phone-input ${errors.phone ? 'input-error' : ''}`}
               onChange={(value) => setValue('phone', value ?? '', { shouldValidate: true })}
             />
@@ -88,46 +129,50 @@ export const ProfileInfo = () => {
           </div>
 
           <div className='user-birthday'>
-            <label htmlFor='birth'>Date of Birth</label>
+            <fieldset className='dob-fieldset'>
+              <legend>Date of Birth</legend>
 
-            <div className='dob-selects'>
-            <select
-              id='birth'
-              aria-label='Day' 
-              className={`select-text ${errors.birthday?.day ? 'input-error' : ''}`} 
-              {...register('birthday.day')}>
-                <option value=''>Day</option>
-                {Array.from({ length: 31 }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>{i + 1}</option>
-                ))}
-              </select>
+              <div className='dob-selects'>
+                <select
+                  id='birth-day'
+                  aria-label='Day'
+                  className={`select-text ${errors.birthday?.day ? 'input-error' : ''}`}
+                  {...register('birthday.day')}
+                >
+                  <option value=''>Day</option>
+                  {Array.from({ length: 31 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
 
-            <select
-              id='birth'
-              aria-label='Month'  
-              className={`select-text ${errors.birthday?.month ? 'input-error' : ''}`} 
-              {...register('birthday.month')}>
-                <option value=''>Month</option>
-                {Array.from({ length: 12 }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
-              </select>
+                <select
+                  id='birth-month'
+                  aria-label='Month'
+                  className={`select-text ${errors.birthday?.month ? 'input-error' : ''}`}
+                  {...register('birthday.month')}
+                >
+                  <option value=''>Month</option>
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
 
-            <select 
-              id='birth'
-              aria-label='Year' 
-              className={`select-text ${errors.birthday?.year ? 'input-error' : ''}`} 
-              {...register('birthday.year')}>
-                <option value=''>Year</option>
-                {Array.from({ length: 120 }, (_, i) => {
-                  const year = new Date().getFullYear() - i;
-                  return <option key={year} value={year}>{year}</option>;
-                })}
-              </select>
-            </div>
+                <select
+                  id='birth-year'
+                  aria-label='Year'
+                  className={`select-text ${errors.birthday?.year ? 'input-error' : ''}`}
+                  {...register('birthday.year')}
+                >
+                  <option value=''>Year</option>
+                  {Array.from({ length: 120 }, (_, i) => {
+                    const year = new Date().getFullYear() - i;
+                    return <option key={year} value={year}>{year}</option>;
+                  })}
+                </select>
+              </div>
+            </fieldset>
           </div>
+
         </div>
 
         <div className='title-line'></div>

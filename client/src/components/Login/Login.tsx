@@ -1,30 +1,49 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import { GoogleLogo } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import { loginSchema, type LoginInputForm } from '../../schemas/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { loginUser } from '../../api/auth';
+import { useState } from 'react';
+import { useAuth } from '../../context/useAuth';
 
 
-// import { useAuth } from '../../context/AuthContext';
 
 
 
 export const Login = () => {
-  // const { login } = useAuth();
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const [serverError, setServerError] = useState('');
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginInputForm>({
     resolver: zodResolver(loginSchema),
   });
-  const onSubmit = (data: LoginInputForm) => {
-    console.log(data);
+
+  const onSubmit = async (data: LoginInputForm) => {
+    const { email, password } = data;
+    try {
+      const result = await loginUser({
+        email,
+        password
+      }) 
+
+      login(result.token, result.role);
+
+      navigate('/');
+      
+    } catch (error: any) {
+      console.error(error)
+      setServerError(error.message || 'Login failed')
+    }
   }
 
   return (
     <div className='auth-wrapper'>
       <div className='auth-container'>
 
-        <div className='wrapper'>
+        <div className='auth-wrapper-container'>
           <div className='auth-title-text'>
             <h1>Welcome Back </h1>
             <div className="title-line"></div>
@@ -44,6 +63,9 @@ export const Login = () => {
             className='user-auth'
             onSubmit={handleSubmit(onSubmit)}
           >
+            {serverError && 
+              <p className='error-message'>{serverError}</p>
+            }
             <input 
               type='email' 
               autoComplete="email"

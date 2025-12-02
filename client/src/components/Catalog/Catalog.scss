@@ -1,0 +1,108 @@
+@use '../../styles/variables' as *;
+
+.catalog-container {
+  background-color:  $color-main-light;
+  width: 100%;
+}
+
+.catalog-wrapper-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.wrapper-filter {
+  display: flex;
+  flex-direction: column;
+  gap: $space-m;
+  width: 100%;
+  max-width: 300px;
+  padding: $space-m $space-l;
+  background-color: $color-background-input-cream-light;
+  border: 1px solid $color-input-border-light;
+  border-radius: $radius-s;
+}
+
+.wrapper-filter h3,
+.wrapper-filter label,
+.wrapper-filter select {
+  font-size: $size-text-s;
+  color: $color-text-body;
+  font-weight: 500;
+}
+
+
+.sort-container select {
+  width: 100%;
+  padding: $space-s $space-m;
+  border: 1px solid $color-input-border-light;
+  border-radius: $radius-s;
+  background-color: $color-background-input-cream-light;
+  font-size: $size-text-s;
+  color: $color-input-text;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border: 1px solid $color-input-border-focus;
+    box-shadow: 0 0 0 3px $color-input-box-shadow;
+    background-color: $color-input-bg-focus;
+  }
+}
+
+
+.food-category,
+.food-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.food-category label,
+.food-ingredients label {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  cursor: pointer;
+  margin-bottom: 6px;
+  font-size: $size-text-s;
+  color: $color-input-text;
+
+  input {
+    cursor: pointer;
+    accent-color: $color-input-border-focus; 
+  }
+}
+
+
+.wrapper-products  {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 1fr 0.2fr;
+  gap: $space-s;
+  padding-left: $space-l;
+}
+
+.product-card { 
+  border: solid 2px red;
+  background: $color-background-input-cream-light;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  overflow: hidden;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  }
+}
+
+
+
+.product-picture {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}

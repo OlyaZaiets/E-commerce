@@ -45,6 +45,20 @@
   gap: $space-s;
 }
 
+
+.dob-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  legend {
+    font-size: $size-text-s;
+    color: $color-text-body;
+    font-weight: 500;
+    margin-bottom: $space-xs;
+  }
+}
+
 .old-password, .new-password {
   grid-column: 1/2;
 }

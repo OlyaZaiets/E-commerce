@@ -1,0 +1,10 @@
+title,description,category,ingredients,price,imageUrl,holidayType,region,tags
+Borsch,"Traditional Ukrainian beetroot soup","soup","beetroot;cabbage;carrot;potato;meat;garlic",12,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671577/Borch_p4x4q8.png,"Winter","Kyiv","hot;traditional"
+Potato Pancakes,"Crispy potato pancakes served with sour cream","main","potato;onion;egg;flour",10,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671571/deruny_xbqprg.png,"Winter","Zhytomyr","crispy;fried"
+Stuffed Cabbage Rolls,"Cabbage rolls stuffed with rice and meat","main","cabbage;rice;meat;onion;carrot",14,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671570/golybci_vbcgdz.png,"Christmas;NewYear","Kyiv","hearty;family"
+Kutia,"Sweet ceremonial dish with wheat, honey and poppy seeds","dessert","wheat;poppy;honey;nuts",9,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671572/Kutia_caqsvf.png,"Christmas","Lviv","sweet;traditional"
+Herring Under a Fur Coat,"Layered salad with herring, beets, potato and mayonnaise","salad","herring;beetroot;potato;carrot;mayonnaise",11,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671577/Oseledec_l5rlre.png,"NewYear","Odesa","layered;classic"
+Pampushky,"Soft garlic bread buns served with borsch","bakery","flour;yeast;water;garlic;oil",8,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671572/Pampushki_jk2o3l.png,"Any","Kyiv","savory;bread"
+Sauerkraut Salad,"Salad of sauerkraut, cucumbers and blue onions","salad","sauerkraut;cucumber;onion;oil",7,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671572/salat_nmytza.png,"Any","Carpathians","fresh;light"
+Dumplings with Cherries,"Sweet varenyky stuffed with cherries","dessert","flour;water;cherries;sugar",9,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671573/Vareniki_with_cherries_gmggyc.png,"Summer;Christmas","Poltava","sweet;popular"
+Dumplings with Potatoes,"Savory varenyky stuffed with potatoes and onion","main","flour;water;potatoes;onion",9,https://res.cloudinary.com/dneu7v0jw/image/upload/v1764671575/Vareniki_with_potatoes_gtyt1z.png,"Any","Poltava","comfort;traditional"

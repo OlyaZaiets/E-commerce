@@ -9,6 +9,7 @@ import { AccountLayout } from './components/UserAccount/UserAccount'
 import { ProfileInfo } from './components/UserAccount/ProfileInfo'
 import { OrdersHistory } from './components/UserAccount/OrdersHistory'
 import { Wishlist } from './components/UserAccount/Wishlist'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 
 function App() {
   return (
@@ -20,7 +21,14 @@ function App() {
           <Route path="login" element={ <Login />} />
           <Route path="registration" element={ <Registration />} />
 
-          <Route path="account" element={<AccountLayout />}>
+          <Route 
+            path="account" 
+            element={
+              <ProtectedRoute>
+                <AccountLayout/>
+              </ProtectedRoute>
+            }
+          >
             <Route index element={ <ProfileInfo />} />
             <Route path="orders" element={<OrdersHistory />} />
             <Route path="wishlist" element={<Wishlist />} />

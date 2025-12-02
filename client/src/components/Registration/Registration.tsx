@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Registration.scss';
 import { GoogleLogo } from 'phosphor-react';
 import '../../styles/common/_common.scss';
@@ -6,19 +6,32 @@ import { useForm } from 'react-hook-form';
 import { registrationSchema, type RegistrationInputForm } from '../../schemas/RegistrationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import PhoneInput from 'react-phone-number-input';
+import { registerUser } from '../../api/auth';
 
 
 // import { useAuth } from '../../context/AuthContext';
 
 export const Registration = () => {
-  // const { register } = useAuth();
+const navigate = useNavigate();
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<RegistrationInputForm>({
+  const { register, handleSubmit, setValue, watch,  formState: { errors } } = useForm<RegistrationInputForm>({
     resolver: zodResolver(registrationSchema),
   });
 
-  const onSubmit = (data: RegistrationInputForm) => {
-    console.log(data)
+  const onSubmit = async (data: RegistrationInputForm) => {
+    const {confirmPassword, privacy, ... payload } = data;
+    try {
+      const result = await registerUser (payload)
+
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('role', result.role);
+
+
+      navigate('/');
+    } catch (error: any) {
+      console.error(error.message);
+      alert(error.message);
+    }
   }
 
 
@@ -78,17 +91,18 @@ export const Registration = () => {
 
             <div className='input-group'>
               <PhoneInput
-                id="phone"
+                id='phone'
                 className={`input-text phone-input ${errors.phone ? 'input-error' : ''}`}
-                placeholder="Enter phone number"
-                defaultCountry="DE"
+                placeholder='Enter phone number*'
+                defaultCountry='DE'
                 international
                 countryCallingCodeEditable={false}
-                onChange={(value) => setValue("phone", value ?? "")}
+                value={watch('phone')}
+                onChange={(value) => setValue('phone', value ?? '')}
               />
 
               {errors.phone && (
-                <p className="error-message">{errors.phone.message}</p>
+                <p className='error-message'>{errors.phone.message}</p>
               )}
             </div>
 
