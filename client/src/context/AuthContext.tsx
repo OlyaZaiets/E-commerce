@@ -48,7 +48,7 @@ export const AuthProvider = ( {children } : {children: React.ReactNode}) => {
         const profile = await getProfile();
         setUser(profile);
       } catch (e) {
-        console.error("Profile load failed:", e);
+        console.error('Profile load failed:', e);
         setUser(null);
       }
     };

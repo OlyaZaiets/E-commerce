@@ -39,11 +39,24 @@ const UserSchema: Schema = new Schema({
   // country: { 
   //   type: String, 
   //   required: true }, 
+
+
   role: {
     type: String, 
     enum: ['user', 'admin'], 
     default: 'user'
   },
+  gender: {
+  type: String,
+  enum: ['male', 'female', 'other', ''],
+  default: ''
+  },
+  birthday: {
+    day: {type: String, default: '' },
+    month: {type: String, default: '' },
+    year: {type: String, default: '' },
+  }
+
 },  { timestamps: true })
 
 export default mongoose.model<UserType>('User', UserSchema)

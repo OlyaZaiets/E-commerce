@@ -4,59 +4,102 @@ import { profileInfoSchema, type ProfileInputInput } from '../../schemas/Profile
 import { zodResolver } from '@hookform/resolvers/zod';
 import PhoneInput from 'react-phone-number-input';
 import { useEffect } from 'react';
-import { useAuth } from '../../context/useAuth';
+import { getProfile, updateProfile } from '../../api/user';
+
 
 
 
 
 
 export const ProfileInfo = () => {
-  const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<ProfileInputInput>({
-          resolver: zodResolver(profileInfoSchema),
-          defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            gender: '',
-            birthday: {
-              day: '',
-              month: '',
-              year: '',
-            },
-            
-          }
-  });
+  const { 
+      register, 
+      handleSubmit, 
+      setValue, 
+      watch, 
+      reset, 
+      formState: { errors } 
+    } = useForm<ProfileInputInput>({
+      resolver: zodResolver(profileInfoSchema),
+      defaultValues: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        gender: '',
+        birthday: {
+          day: '',
+          month: '',
+          year: '',
+        },
+        oldPassword: '',
+        newPassword: ''
+      }
+    });
 
-  const { user } = useAuth();
-  const onSubmit = (data: ProfileInputInput) => {
-    console.log(data)
-  }
-
-
-
+//For PhoneInput
   useEffect(() => {
     register('phone');
   }, [register]);
 
-  useEffect(() => {
-    if (!user) return;
+useEffect(() => {
+    getProfile().then((profile) => {
+      const [firstName, ...lastParts] = profile.fullName?.split(' ') || [];
 
-    const [firstName, ...lastParts] = user.fullName?.split(' ') || [];
-
-    reset({
-      firstName: firstName || '',
-      lastName: lastParts.join(' ') || '',
-      email: user.email || '',
-      phone: user.phone || '',
-      gender: user.gender || '',
-      birthday: {
-        day: user.birthday?.day || '',
-        month: user.birthday?.month || '',
-        year: user.birthday?.year || '',
-      },
+      reset({
+        firstName: firstName || '',
+        lastName: lastParts.join(' ') || '',
+        email: profile.email || '',
+        phone: profile.phone || '',
+        gender: profile.gender || '',
+        birthday: {
+          day: profile.birthday?.day || '',
+          month: profile.birthday?.month || '',
+          year: profile.birthday?.year || '',
+        },
+        oldPassword: '',
+        newPassword: '',
+      });
     });
-  }, [user, reset]);
+  }, [reset]);
+
+
+  const onSubmit = async (data: ProfileInputInput) => {
+    const fullName = `${data.firstName} ${data.lastName}`.trim();
+
+    const payload: any = {
+      fullName,
+      email: data.email,
+      phone: data.phone,
+      gender: data.gender,
+      birthday: data.birthday
+    };
+
+    if (data.oldPassword) {
+      payload.oldPassword = data.oldPassword;
+  }
+
+    // password update
+    if (data.newPassword) {
+      payload.password = data.newPassword;
+    }
+
+    try {
+      const updated = await updateProfile(payload);
+      console.log('Updated profile:', updated);
+      alert('Profile updated successfully!');
+
+      // reload updated data
+      reset({
+        ...data,
+        oldPassword: '',
+        newPassword: '',
+      });
+    } catch (error: any) {
+      alert(error.message || 'Update failed.');
+    }
+  };
+
 
   
   return(

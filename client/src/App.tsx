@@ -17,12 +17,12 @@ function App() {
       <Routes>
         <Route element={<MainLayout/>}>
           <Route index element={<HomePage />}/>
-          <Route path="catalog" element={ <Catalog />} />
-          <Route path="login" element={ <Login />} />
-          <Route path="registration" element={ <Registration />} />
+          <Route path='catalog' element={ <Catalog />} />
+          <Route path='login' element={ <Login />} />
+          <Route path='registration' element={ <Registration />} />
 
           <Route 
-            path="account" 
+            path='account' 
             element={
               <ProtectedRoute>
                 <AccountLayout/>
@@ -30,8 +30,8 @@ function App() {
             }
           >
             <Route index element={ <ProfileInfo />} />
-            <Route path="orders" element={<OrdersHistory />} />
-            <Route path="wishlist" element={<Wishlist />} />
+            <Route path='orders' element={<OrdersHistory />} />
+            <Route path='wishlist' element={<Wishlist />} />
           </Route>
           
         </Route>
