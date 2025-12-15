@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 export interface UserType extends Document {
   fullName: string,
@@ -7,6 +7,7 @@ export interface UserType extends Document {
   phone: string,
   // country: string, 
   role: 'user' | 'admin',
+  wishlist: mongoose.Types.ObjectId[];
   createdAt: Date,
 }
 
@@ -55,7 +56,16 @@ const UserSchema: Schema = new Schema({
     day: {type: String, default: '' },
     month: {type: String, default: '' },
     year: {type: String, default: '' },
-  }
+  },
+
+  wishlist: [
+    { 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+      default: [],
+    }
+  ],
+
 
 },  { timestamps: true })
 

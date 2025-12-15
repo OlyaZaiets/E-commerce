@@ -2,18 +2,23 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import './UserAccount.scss';
 import { useAuth } from '../../context/useAuth';
+import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/wishlistContext';
 
 
 
 export const AccountLayout = () => {
   const navigate = useNavigate();
   const  { logout } = useAuth();
+  const { clearCart } = useCart();
+  const { clearWishlist } = useWishlist();
 
   const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     logout();
+    clearCart();
+    clearWishlist();
     navigate('/');
-
   }
 
   return (

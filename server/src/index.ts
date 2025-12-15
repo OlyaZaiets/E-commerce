@@ -1,3 +1,4 @@
+import "./types/express-augment";
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -6,6 +7,8 @@ import productRoutes from './routes/productRoutes';
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import importProducts from './routes/importProducts';
+import cartRoutes from './routes/cartRoutes';
+
 
 dotenv.config();
 
@@ -18,25 +21,21 @@ app.use(
     extended: true,
   })
 );
-app.use(cors());
-
-// Connect to MongoDB
-const mongoULI = process.env.MONGO_URI as string;
-
-mongoose.connect(mongoULI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.log('MongoDB connection error:', error))
-
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => {
-  console.log('Server is running on http://localhost:' + port);
-});
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/import', importProducts);
+app.use('/api/cart', cartRoutes);
+
+
+
 
 app.use((err: any, req: any, res: any, next: any) => {
   if (err instanceof SyntaxError && 'body' in err) {
@@ -44,6 +43,19 @@ app.use((err: any, req: any, res: any, next: any) => {
   }
   console.error(err);
   res.status(500).json({ message: 'Server error' });
+});
+
+// Connect to MongoDB
+const mongoURI = process.env.MONGO_URI as string;
+
+mongoose.connect(mongoURI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.log('MongoDB connection error:', error))
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log('Server is running on http://localhost:' + port);
 });
 
 

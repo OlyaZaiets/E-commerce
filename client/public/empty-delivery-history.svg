@@ -1,0 +1,11 @@
+<svg width="260" height="200" viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Годинник -->
+  <circle cx="130" cy="90" r="45" stroke="#F4D35E" stroke-width="4"/>
+
+  <!-- Стрілки -->
+  <line x1="130" y1="90" x2="130" y2="65" stroke="#F4D35E" stroke-width="4" stroke-linecap="round"/>
+  <line x1="130" y1="90" x2="155" y2="100" stroke="#F4D35E" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Декоративна хвиля -->
+  <path d="M105 160C118 170 142 170 155 160" stroke="#F4D35E" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -7,10 +7,6 @@ import { useEffect } from 'react';
 import { getProfile, updateProfile } from '../../api/user';
 
 
-
-
-
-
 export const ProfileInfo = () => {
   const { 
       register, 

@@ -10,6 +10,7 @@
     "module": "commonjs",
     "target": "ES2020",
     "types": ["node"],
+    // "typeRoots": ["./src/types", "./node_modules/@types"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -45,6 +46,10 @@
     "forceConsistentCasingInFileNames": true,
 
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "files": true
+  },
+
 }

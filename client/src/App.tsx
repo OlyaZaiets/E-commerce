@@ -10,6 +10,7 @@ import { ProfileInfo } from './components/UserAccount/ProfileInfo'
 import { OrdersHistory } from './components/UserAccount/OrdersHistory'
 import { Wishlist } from './components/UserAccount/Wishlist'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import { CartPage } from './components/Cart/Cart'
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path='catalog' element={ <Catalog />} />
           <Route path='login' element={ <Login />} />
           <Route path='registration' element={ <Registration />} />
+          <Route path='cart' element={ <CartPage/>} />
+
 
           <Route 
             path='account' 
