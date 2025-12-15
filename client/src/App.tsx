@@ -11,6 +11,7 @@ import { OrdersHistory } from './components/UserAccount/OrdersHistory'
 import { Wishlist } from './components/UserAccount/Wishlist'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { CartPage } from './components/Cart/Cart'
+import { ProductDetails } from './components/ProductDetails/ProductDetails'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route element={<MainLayout/>}>
           <Route index element={<HomePage />}/>
           <Route path='catalog' element={ <Catalog />} />
+          <Route path="products/:id" element={<ProductDetails />} />
           <Route path='login' element={ <Login />} />
           <Route path='registration' element={ <Registration />} />
           <Route path='cart' element={ <CartPage/>} />

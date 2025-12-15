@@ -4,7 +4,9 @@ import path from 'path';
 import fs from 'fs';
 import csv from 'csv-parser';
 import Product from '../models/Product';
-import { adminMiddleware, authMiddleware } from '../middleware/auth';
+import { authMiddleware } from '../middleware/auth';
+import { requireAuth } from '../middleware/requireAuth';
+import { requireAdmin } from '../middleware/requireAdmin';
 
 const router = Router();
 
@@ -13,7 +15,8 @@ const upload = multer({ dest: 'tmp/'});
 router.post(
   '/csv',
   authMiddleware,
-  adminMiddleware,
+  requireAuth,
+  requireAdmin,
   upload.single('file'),
   async (req, res) => {
     if (!req.file) {

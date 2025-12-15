@@ -1,0 +1,56 @@
+
+@use '../../styles/variables' as *;
+
+
+.all-details {
+  display: flex;
+  // flex-direction: column;
+  padding-top: $space-l;
+  padding-bottom: $space-l;
+}
+
+.left-side .right-side {
+  flex: 1;
+
+}
+
+.left-side {
+  // flex: 1;
+  // border: solid 2px rgb(172, 14, 40);
+
+
+  img {
+    max-width: 590px;
+  }
+  padding-right: $space-l;
+}
+.right-side {
+  // flex: 1;
+
+    // border: solid 2px rgb(14, 31, 133);
+    padding-left: $space-l;
+  h1{
+    padding: $space-s 0;
+    font-size: $size-text-l;
+  }
+
+  p {
+      font-size: $size-text-sm;
+  }
+}
+
+.right-side-price {
+  padding-bottom: $space-s;
+  font-size: $size-text-m;
+}
+
+.ingredients {
+  padding-top: $space-s;
+    font-size: $size-text-s;
+}
+
+.list-ingredients {
+  // border: solid 2px rgb(180, 35, 35);
+  padding-left: 20px;
+}
+

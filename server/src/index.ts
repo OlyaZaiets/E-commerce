@@ -1,4 +1,4 @@
-import "./types/express-augment";
+import './types/express-augment';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -8,7 +8,6 @@ import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import importProducts from './routes/importProducts';
 import cartRoutes from './routes/cartRoutes';
-
 
 dotenv.config();
 

@@ -104,9 +104,6 @@ export const deleteUser = async (req: Request, res: Response) =>  {
 
 export const getMe = async (req: Request, res: Response) => {
   try {
-    if (!req.user) {
-        return res.status(401).json({ message: "Unauthorized" });
-    }
     // const authReq = req as AuthRequest; 
     // const userId = authReq.user.id;
     const user = await User.findById(req.user?.id).select('-password');
@@ -126,7 +123,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
   try {
 
     if (!req.user) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(401).json({ message: 'Unauthorized' });
     }
     // const authReq = req as AuthRequest;
     // const userId = authReq.user.id; // беремо ID із токена
@@ -184,7 +181,7 @@ export const addToWishlist = async (req: Request, res: Response) => {
   // const userId = authReq.user.id;
   
   if (!req.user) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
   
   const productId = req.params.productId;
@@ -210,7 +207,7 @@ export const removeFromWishlist = async (req: Request, res: Response) => {
   // const userId = authReq.user.id;
 
   if (!req.user) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
   const productId = req.params.productId;
 

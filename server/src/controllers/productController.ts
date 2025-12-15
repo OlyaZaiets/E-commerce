@@ -20,6 +20,31 @@ export const getProducts = async (req: Request, res: Response) => {
   }
 }
 
+export const getProductById = async (req: Request, res: Response) => {
+  try {
+    
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({message : 'Invalid product ID format'})
+    }
+
+    const product = await Product.findById(id);
+
+    if(!product) {
+      return res.status(404).json({message: 'Product not found'})
+    }
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({message: 'Error fetching product', error})
+  }
+}
+
+
+
+
+
+
 export const updateProduct = async (req: Request, res: Response) => {
     console.log('REQ PARAMS UPDATE:', req.params);
   try {

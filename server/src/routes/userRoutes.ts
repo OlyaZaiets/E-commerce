@@ -1,19 +1,32 @@
 import { Router } from 'express';
 import { addToWishlist, createUser, deleteUser, getMe, getUsers, getWishlist, removeFromWishlist, updateUser, updateUserProfile } from '../controllers/userController';
-import { adminMiddleware, authMiddleware } from '../middleware/auth';
+import { authMiddleware } from '../middleware/auth';
+import { requireAuth } from '../middleware/requireAuth';
+import { requireAdmin } from '../middleware/requireAdmin';
+
 
 const router = Router();
-router.get('/me', authMiddleware, getMe);
-router.patch('/me', authMiddleware, updateUserProfile);
+router.use(authMiddleware, requireAuth);
 
-router.post('/', authMiddleware, adminMiddleware,  createUser );
-// router.get('/', getUsers );
-router.get('/', authMiddleware, adminMiddleware, getUsers );
-router.patch('/:id', authMiddleware, adminMiddleware, updateUser);
-router.delete('/:id', authMiddleware, adminMiddleware, deleteUser);
+// profile
 
-router.post('/wishlist/:productId', authMiddleware, addToWishlist);
-router.delete('/wishlist/:productId', authMiddleware, removeFromWishlist);
-router.get('/wishlist', authMiddleware, getWishlist);
+router.get('/me',  getMe);
+router.patch('/me', updateUserProfile);
+
+//wishlist
+
+router.post('/wishlist/:productId', addToWishlist);
+router.delete('/wishlist/:productId', removeFromWishlist);
+router.get('/wishlist', getWishlist);
+
+// admin
+
+router.post('/', requireAdmin,  createUser );
+router.get('/', requireAdmin, getUsers );
+router.patch('/:id', requireAdmin, updateUser);
+router.delete('/:id', requireAdmin, deleteUser);
+
+
+
 
 export default router;

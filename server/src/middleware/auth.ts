@@ -1,14 +1,8 @@
-import { Response, Request,  NextFunction } from "express";
+import "../types/express-augment";
 
+import { Response, Request,  NextFunction } from "express";
 import jwt from 'jsonwebtoken';
 import type { AuthPayload } from "../types/auth";
-
-export const test = (req: Request, res: Response) => {
-  req.user; // ❗ тут має ЗНИКНУТИ помилка
-  res.json({ ok: true });
-};
-
-
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
@@ -38,10 +32,10 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   }
 }
 
-export const adminMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user?.role !== 'admin') {
-    return res.status(403).json({message: 'Access denied: admin only'})
-  }
-  next();
+// export const adminMiddleware = (req: Request, res: Response, next: NextFunction) => {
+//   if (req.user?.role !== 'admin') {
+//     return res.status(403).json({message: 'Access denied: admin only'})
+//   }
+//   next();
 
-}
+// }
