@@ -10,6 +10,8 @@ export interface ProductType extends Document {
   holidayType: string[],
   region: string, 
   tags: string[], 
+  createdAt: Date;
+  updatedAt: Date;
 
 }
 
@@ -23,6 +25,7 @@ const ProductSchema: Schema = new Schema ({
   holidayType: { type: [String], default: [] },
   region: { type: String, required: true }, 
   tags: { type: [String], default: [] }, 
-})
+}, { timestamps: true }
+)
 
 export default mongoose.model<ProductType>('Product', ProductSchema);

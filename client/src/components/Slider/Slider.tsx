@@ -1,29 +1,56 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import './Slider.scss';
-
-import img1 from '../../assets/slider/Kutya.png'
-import img2 from '../../assets/slider/Borch.png'
-import img3 from '../../assets/slider/Pampushki.png'
-import img4 from '../../assets/slider/Vareniki_with_cherries.png'
-import img5 from '../../assets/slider/golybci.png'
-
-
-// import required modules
-// import { Pagination, Navigation } from 'swiper/modules';
 import { Autoplay, Pagination } from 'swiper/modules';
+import { useEffect, useMemo, useState } from 'react';
+import type { Product } from '../../types/products';
+import { useNavigate } from 'react-router-dom';
+import { getProducts } from '../../api/products';
 
 export const Slider = () => {
-  const images = [img1, img2, img3, img4, img5];
+  const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getProducts().then(setProducts).catch(console.error);
+  }, []);
+  
+  const sliderProducts = useMemo(() => {
+    if (!products.length) return [];
+
+    const popular = products.filter(p =>
+      p.tags?.includes('popular')
+    );
+
+    // 5 або більше 
+    if (popular.length >= 5) {
+      return popular.slice(0, 5);
+    }
+
+    //  1–4 popular
+    if (popular.length > 0) {
+      const rest = products
+        .filter(p => !popular.includes(p))
+        .slice(0, 5 - popular.length);
+
+      return [...popular, ...rest];
+    }
+
+    return [...products]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() -
+          new Date(a.createdAt).getTime()
+      )
+      .slice(0, 5);
+
+  }, [products]);
+
+  if (!sliderProducts.length) return null;
 
   return (
     <>
       <Swiper
-        // pagination={{
-        //   type: 'progressbar',
-        // }}
-        
-        // navigation={true}
         slidesPerView={2}
         spaceBetween={10}
         loop={true}
@@ -36,15 +63,21 @@ export const Slider = () => {
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper"
+        className='mySwiper'
       >
-        {images.map((img, index) => (
-          <SwiperSlide key={index}>
-            <img src={img} alt={`slider-${index}`}/>
+        {sliderProducts.map(product => (
+          <SwiperSlide 
+            key={product._id}
+            onClick={() => navigate(`/products/${product._id}`)}
+            className='slider-slide'
+          >
+            <img src={product.imageUrl} alt={product.title}/>
+
+            <div className="slider-caption">
+              <h4>{product.title}</h4>
+            </div>
           </SwiperSlide>
         ))}
-
-
       </Swiper>
     </>
   )

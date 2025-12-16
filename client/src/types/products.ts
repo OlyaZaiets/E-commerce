@@ -9,4 +9,6 @@ export interface Product {
   holidayType: string[];
   region: string;
   tags: string[];
+  createdAt: string;
+  updatedAt: string; 
 }

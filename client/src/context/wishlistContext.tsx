@@ -30,10 +30,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  useEffect(() => {
-    refreshWishlist();
-  }, []);
-
   const toggleWishlist = async (productId: string) => {
     if (wishlist.includes(productId)) {
       await removeFromWishlist(productId);

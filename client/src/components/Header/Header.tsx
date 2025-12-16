@@ -4,6 +4,8 @@ import { Heart, MagnifyingGlass, ShoppingCartSimple, User} from 'phosphor-react'
 import { useAuth } from '../../context/useAuth';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/wishlistContext';
+import { useState } from 'react';
+import { SearchModal } from '../SearchModal/SearchModal';
 
 
 
@@ -12,7 +14,7 @@ export const Header = () => {
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
   const navigate = useNavigate();
-  
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleCartClick = (e: any) => {
   if (!isLoggedInUser) {
@@ -56,9 +58,14 @@ const handleWishlistClick = (e: any) => {
             </NavLink>
         </nav>
         <div className='header-icons-container'>
-          <NavLink to='search' className='header-icons' title='Search'>
+          <button 
+            className='header-icons' 
+            title='Search'
+            onClick={() => setIsSearchOpen(true)}
+          >
             <MagnifyingGlass size={32} />
-          </NavLink>
+          </button>
+
           <NavLink 
             className='header-icons' 
             to='account/wishlist'
@@ -90,6 +97,10 @@ const handleWishlistClick = (e: any) => {
           </NavLink>
         </div>
       </div>
+      
+      {isSearchOpen && (
+        <SearchModal onClose={() => setIsSearchOpen(false)} />
+      )}
     </div>
   )
 }
