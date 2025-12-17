@@ -1,0 +1,19 @@
+@use '../../styles/variables' as *;
+
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 40px;
+}
+
+.address-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  label {
+    font-size: $size-text-s;
+    color: $color-text-body;
+    font-weight: 500;
+  }
+}

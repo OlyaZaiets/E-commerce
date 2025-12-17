@@ -7,10 +7,9 @@ export const getCart = async (req: Request, res: Response) => {
 
   if (!userId) {
   return res.status(401).json({ message: 'Unauthorized: please log in.' });
-}
+  } 
 
   try {
-
     let cart = await Cart.findOne( {userId} ).populate('items.productId');
 
     if (!cart) {

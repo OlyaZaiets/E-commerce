@@ -3,6 +3,7 @@ import { addToWishlist, createUser, deleteUser, getMe, getUsers, getWishlist, re
 import { authMiddleware } from '../middleware/auth';
 import { requireAuth } from '../middleware/requireAuth';
 import { requireAdmin } from '../middleware/requireAdmin';
+import { getAddress, updateAddress } from '../controllers/addressController';
 
 
 const router = Router();
@@ -19,8 +20,12 @@ router.post('/wishlist/:productId', addToWishlist);
 router.delete('/wishlist/:productId', removeFromWishlist);
 router.get('/wishlist', getWishlist);
 
-// admin
+// address
+router.get('/address', getAddress);
+router.patch('/address', updateAddress);
 
+
+// admin
 router.post('/', requireAdmin,  createUser );
 router.get('/', requireAdmin, getUsers );
 router.patch('/:id', requireAdmin, updateUser);

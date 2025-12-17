@@ -1,5 +1,5 @@
 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import './UserAccount.scss';
 import { useAuth } from '../../context/useAuth';
 import { useCart } from '../../context/CartContext';
@@ -31,10 +31,42 @@ export const AccountLayout = () => {
 
         <div className='account-manipulation'>
           <div className='account-tabs' >
-            <button className='button-accent'>Personal account</button>
-            <button className='button-accent'>Address Book</button>
-            <button className='button-accent'>Order history</button>
-            <button className='button-accent'>Wishlist</button>
+            <NavLink
+              to="/account"
+              end
+              className={({ isActive }) =>
+                isActive ? 'button-accent active' : 'button-accent'
+              }
+            >
+              Personal account
+            </NavLink>
+
+            <NavLink
+              to="/account/address"
+              className={({ isActive }) =>
+                isActive ? 'button-accent active' : 'button-accent'
+              }
+            >
+              Address Book
+            </NavLink>
+
+            <NavLink
+              to="/account/orders"
+              className={({ isActive }) =>
+                isActive ? 'button-accent active' : 'button-accent'
+              }
+            >
+              Order history
+            </NavLink>
+
+            <NavLink
+              to="/account/wishlist"
+              className={({ isActive }) =>
+                isActive ? 'button-accent active' : 'button-accent'
+              }
+            >
+              Wishlist
+            </NavLink>
           </div>
           <a className='logout-link' href='/' onClick={handleLogout}>Logout</a>
         </div>

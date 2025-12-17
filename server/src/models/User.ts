@@ -1,4 +1,15 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface Address {
+  _id?: mongoose.Types.ObjectId;
+  country: string;
+  postalCode: string;
+  region: string;
+  city: string;
+  street: string;
+  building: string;
+  isDefault: boolean;
+}
 
 export interface UserType extends Document {
   fullName: string,
@@ -8,8 +19,25 @@ export interface UserType extends Document {
   // country: string, 
   role: 'user' | 'admin',
   wishlist: mongoose.Types.ObjectId[];
+  addresses: Address[]; 
   createdAt: Date,
+  updatedAt: Date;
 }
+
+const AddressSchema = new Schema(
+  {
+    country: { type: String, required: true, trim: true },
+    postalCode: { type: String, required: true, trim: true },
+    region: { type: String, required: true, trim: true },
+    city: { type: String, required: true, trim: true },
+    street: { type: String, required: true, trim: true },
+    building: { type: String, required: true, trim: true },
+    isDefault: { type: Boolean, default: true },
+  },
+  { _id: true }
+);
+
+
 
 
 const UserSchema: Schema = new Schema({
@@ -65,6 +93,8 @@ const UserSchema: Schema = new Schema({
       default: [],
     }
   ],
+
+  addresses: { type: [AddressSchema], default: [] },
 
 
 },  { timestamps: true })

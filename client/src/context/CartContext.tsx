@@ -16,6 +16,7 @@ interface CartContextType {
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
   cartCount: number;
+  clearCart: () => void;
   refreshCart: () => void;
 }
 
@@ -52,13 +53,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     await refreshCart();
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, cartCount, refreshCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, cartCount, refreshCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-export const useCart = () => useContext(CartContext)!;
+export const useCart = () => {
+  const context = useContext(CartContext);
+
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider');
+  }
+
+  return context;
+};

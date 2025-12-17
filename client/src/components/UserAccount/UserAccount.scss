@@ -2,9 +2,10 @@
 
 
 .account-container {
-  background-color:  $color-main-light;
+  background-color: $color-main-light;
   width: 100%;
-} 
+}
+
 .account-info {
   &-title {
     color: $color-heading;
@@ -15,36 +16,28 @@
 .account-manipulation {
   display: flex;
   justify-content: space-between;
-  // border: 2px solid rgb(218, 14, 48);
   align-items: center;
 }
 
 .account-tabs {
   display: flex;
   gap: 30px;
-
-  // button {
-  //   padding: 15px 20px;
-  // }
 }
-
-// .account-main-container {
-//   // border: 2px solid pink;
-// }
 
 .logout-link {
-  color: $color-link; 
+  color: $color-link;
 
-    &:hover {
-    color: $color-link-hover; 
-    text-decoration: underline; 
+  &:hover {
+    color: $color-link-hover;
+    text-decoration: underline;
   }
 }
+
 
 .button-accent {
   background-color: $color-main-light;
   color: $color-input-text;
-  // border: 2px solid $color-gold-light;
+  text-decoration: none;
   padding: $space-s $space-l;
   border-radius: $radius-m;
   border: none;
@@ -52,18 +45,19 @@
   cursor: pointer;
   font-size: $size-text-s;
   box-shadow: none;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.1s ease;
 
-  &:hover {
+  /* hover — тільки для НЕ активних */
+  &:not(.active):hover {
     background-color: $color-gold-light;
     box-shadow: $shadow-medium;
-
   }
 
   &:active {
     background-color: $color-gold;
     box-shadow: $shadow-soft;
-    // transform: translateY(0);
   }
 
   &:disabled {
@@ -73,4 +67,19 @@
     cursor: not-allowed;
     box-shadow: none;
   }
+}
+
+.button-accent.active {
+  background-color: $color-gold;       
+  color: $color-heading;              
+  box-shadow: $shadow-medium;            
+  cursor: default;                       
+  transform: translateY(1px);            
+}
+
+/* hover НЕ перебиває active */
+.button-accent.active:hover {
+  background-color: $color-gold;
+  box-shadow: $shadow-medium;
+  transform: translateY(1px);
 }

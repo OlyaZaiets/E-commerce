@@ -1,5 +1,13 @@
 @use '../../styles/variables' as *;
 
+.wrapper-products-wishlist  {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-s;
+  padding: $space-l;
+
+}
+
 .wishlist-empty {
   text-align: center;
   padding: 40px 20px;

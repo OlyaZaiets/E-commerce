@@ -14,16 +14,18 @@ const { wishlistProducts, wishlist, toggleWishlist } = useWishlist();
         <h2>Your Wishlist</h2>
         <h2>Amount: {wishlist.length}</h2>
 
-        <div className='wrapper-products'>
+      {wishlistProducts.length > 0 && (
+        <div className='wrapper-products-wishlist'>
           {wishlistProducts.map((item: any) => (
-            <ProductCard 
-                key={item._id}
-                item={item}
-                wishlist={wishlist}
-                toggleWishlist={toggleWishlist}
-              />
+            <ProductCard
+              key={item._id}
+              item={item}
+              wishlist={wishlist}
+              toggleWishlist={toggleWishlist}
+            />
           ))}
         </div>
+      )}
         
         {wishlist.length === 0 && (
           <div className='wishlist-empty'>

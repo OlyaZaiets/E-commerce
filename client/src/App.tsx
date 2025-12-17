@@ -6,12 +6,13 @@ import { HomePage } from './pages/HomePage/HomePage'
 import { Login } from './components/Login/Login'
 import { Registration } from './components/Registration/Registration'
 import { AccountLayout } from './components/UserAccount/UserAccount'
-import { ProfileInfo } from './components/UserAccount/ProfileInfo'
-import { OrdersHistory } from './components/UserAccount/OrdersHistory'
-import { Wishlist } from './components/UserAccount/Wishlist'
+import { ProfileInfo } from './components/ProfileInfo/ProfileInfo'
+import { OrdersHistory } from './components/OrdersHistory/OrdersHistory'
+import { Wishlist } from './components/Wishlist/Wishlist'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { CartPage } from './components/Cart/Cart'
 import { ProductDetails } from './components/ProductDetails/ProductDetails'
+import { AddressBook } from './components/AddressBook/AddressBook'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           >
             <Route index element={ <ProfileInfo />} />
             <Route path='orders' element={<OrdersHistory />} />
+            <Route path="address" element={<AddressBook />} />
             <Route path='wishlist' element={<Wishlist />} />
           </Route>
           
