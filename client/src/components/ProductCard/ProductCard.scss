@@ -22,5 +22,21 @@
   justify-content: center;
 }
 
+.admin-delete-btn {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid #c0392b;
+  color: #c0392b;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background: #c0392b;
+    color: #fff;
+  }
+}
+
 
 

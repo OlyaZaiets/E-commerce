@@ -44,6 +44,9 @@ const handleIngredientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   );
 };
 
+
+
+
 const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   setSortBy(e.target.value);
 };
@@ -72,6 +75,10 @@ const filteredProducts = products
     // popularity — пізніше коли буде рейтинг
     return 0;
   });
+
+  const handleDeleteProduct = (id: string) => {
+    setProducts(prev => prev.filter(product => product._id !== id));
+  };
 
 
   const resetFilters = () => {
@@ -276,6 +283,7 @@ const filteredProducts = products
                 item={item}
                 wishlist={wishlist}
                 toggleWishlist={toggleWishlist}
+                onDelete={handleDeleteProduct}
               />
             ))
           )}

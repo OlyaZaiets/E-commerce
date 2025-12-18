@@ -1,0 +1,25 @@
+@use '../../styles/variables' as *;
+
+.array-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.array-editor__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.array-editor__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #f2f2f2;
+  border-radius: 6px;
+}
