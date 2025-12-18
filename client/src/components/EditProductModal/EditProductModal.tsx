@@ -1,7 +1,19 @@
-import { useState } from 'react';
-import type { Product } from '../../types/products';
 import './EditProductModal.scss';
+import type { Product } from '../../types/products';
 import { ArrayEditor } from '../ArrayEditor/ArrayEditor';
+import { useForm, Controller } from 'react-hook-form';
+import { uploadToCloudinary } from '../../utils/cloudinary';
+
+
+type ProductFormValues = {
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  tags: string[];
+  ingredients: string[];
+};
+
 
 interface EditProductModalProps {
   product: Product;
@@ -12,20 +24,31 @@ interface EditProductModalProps {
 
 export const EditProductModal = ( { product, onClose, onSave, isSaving }: EditProductModalProps)  => {
 
-  const [draft, setDraft] = useState<Product>(product);
+const {
+  control,
+  register,
+  handleSubmit,
+  setValue,
+  formState: { isDirty, isSubmitting },
+} = useForm<ProductFormValues>({
+  defaultValues: {
+    title: product.title,
+    description: product.description,
+    price: product.price,
+    imageUrl: product.imageUrl,
+    tags: product.tags,
+    ingredients: product.ingredients,
+  },
+});
 
 
-  const handleSave = () => {
-    onSave(draft);
+  const onSubmit = (data: ProductFormValues) => {
+    onSave({
+      ...product,
+      ...data,
+    });
   };
 
-  const isUnchanged =
-  draft.title === product.title &&
-  draft.description === product.description &&
-  draft.price === product.price &&
-  draft.imageUrl === product.imageUrl &&
-  JSON.stringify(draft.tags) === JSON.stringify(product.tags) &&
-  JSON.stringify(draft.ingredients) === JSON.stringify(product.ingredients);
 
 
   return (
@@ -46,42 +69,65 @@ export const EditProductModal = ( { product, onClose, onSave, isSaving }: EditPr
             Title
             <input
               type="text"
-              value={draft.title}
-              onChange={(e) =>
-                setDraft(prev => ({ ...prev, title: e.target.value }))
-              }
+              {...register('title')}
             />
           </label>
 
           <label>
-            Image URL
+            Product image
             <input
-              type="text"
-              value={draft.imageUrl}
-              onChange={(e) =>
-                setDraft(prev => ({ ...prev, imageUrl: e.target.value }))
-              }
+              type="file"
+              accept="image/*"
+              disabled={isSubmitting}
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                try {
+                  const url = await uploadToCloudinary(file);
+                  setValue('imageUrl', url, { shouldDirty: true });
+                } catch (err: any) {
+                  alert(err.message || 'Upload failed');
+                }
+              }}
             />
           </label>
+{/* 
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt="Preview"
+              className="image-preview"
+            />
+          )} */}
 
-          <ArrayEditor
-            label = 'Tags'
-            values={draft.tags}
-            placeholder='Add tag and press Enter'
-            disabled = {isSaving}
-            onChange={(tags) => 
-              setDraft(prev => ({ ...prev, tags }))
-            }
+
+          <Controller 
+            control={control}
+            name='tags'
+            render={({field}) => (
+              <ArrayEditor
+                label = 'Tags'
+                values={field.value}
+                placeholder='Add tag and press Enter'
+                disabled = {isSubmitting}
+                onChange={field.onChange}
+              />
+            )}
           />
 
-          <ArrayEditor
-            label = 'Ingredients'
-            values={draft.ingredients}
-            placeholder='Add ingredient and press Enter'
-            disabled = {isSaving}
-            onChange={(ingredients) => 
-              setDraft(prev => ({ ...prev, ingredients }))
-            }
+          <Controller 
+            control={control}
+            name='ingredients'
+            render={({field}) => (
+              <ArrayEditor
+                label = 'Ingredients'
+                values={field.value}
+                placeholder='Add ingredient and press Enter'
+                disabled = {isSubmitting}
+                onChange={field.onChange}
+              />
+            )}
           />
 
           <label>
@@ -90,23 +136,14 @@ export const EditProductModal = ( { product, onClose, onSave, isSaving }: EditPr
               type="number"
               min={0}
               step={0.1}
-              value={draft.price}
-              onChange={(e) =>
-                setDraft(prev => ({
-                  ...prev,
-                  price: Number(e.target.value),
-                }))
-              }
+              {...register('price', { valueAsNumber: true })}
             />
           </label>
 
           <label>
             Description
             <textarea
-              value={draft.description}
-              onChange={(e) =>
-                setDraft(prev => ({ ...prev, description: e.target.value }))
-              }
+            {...register('description')}
             />
           </label>
         </div>
@@ -117,10 +154,10 @@ export const EditProductModal = ( { product, onClose, onSave, isSaving }: EditPr
 
           <button 
             className="dark-btn" 
-            onClick={handleSave}
-            disabled={isUnchanged || isSaving}
+            onClick={handleSubmit(onSubmit)}
+            disabled={!isDirty || isSubmitting}
           >
-            {isSaving ? 'Saving...' : 'Save'}
+            {isSubmitting ? 'Saving...' : 'Save'}
           </button>
         </footer>
       </div>

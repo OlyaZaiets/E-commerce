@@ -7,7 +7,8 @@ import { useWishlist } from '../../context/wishlistContext';
 import { useCart } from '../../context/CartContext';
 import { getProductById, updateProduct, updateProductPrice } from '../../api/products';
 import { useAuth } from '../../context/useAuth';
-import { EditProductModal } from '../EditProductModal/EditProductModal';
+import { ProductModal } from '../ProductModal/ProductModal';
+import type { ProductFormValues } from '../ProductForm/ProductForm';
 
 
 export const ProductDetails = () => {
@@ -147,33 +148,28 @@ export const ProductDetails = () => {
         </div>
 
       </div>
-        {isEditModalOpen && product && (
-          <EditProductModal
-            product={product}
-            onClose={() => setIsEditModalOpen(false)}
-            isSaving={isSaving}
-            onSave={async (draft) => {
-              try {
-                setIsSaving(true);
-                
-                const updated = await updateProduct(product._id, {
-                title: draft.title,
-                description: draft.description,
-                price: draft.price,
-                imageUrl: draft.imageUrl,
-                tags: draft.tags,
-                ingredients: draft.ingredients,
-              });
-                setProduct(updated);
-                setIsEditModalOpen(false);
-              } catch (error: any) {
-                alert(error.message || 'Failed to update product');
-              } finally {
-                setIsSaving(false);
-              }
-            }}
-          />
-        )}
+      {isEditModalOpen && product && (
+        <ProductModal
+          product={product}
+          isSaving={isSaving}
+          onClose={() => setIsEditModalOpen(false)}
+          onSave={async (data: ProductFormValues, productId?: string) => {
+            if (!productId) return;
+
+            try {
+              setIsSaving(true);
+
+              const updated = await updateProduct(productId, data);
+              setProduct(updated);
+              setIsEditModalOpen(false);
+            } catch (error: any) {
+              alert(error.message || 'Failed to update product');
+            } finally {
+              setIsSaving(false);
+            }
+          }}
+        />
+      )}
 
     
     </div>

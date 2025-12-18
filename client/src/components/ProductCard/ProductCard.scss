@@ -2,7 +2,7 @@
 @use '../../styles/variables' as *;
 
 .product-card {
-  border: solid 2px red;
+  border: 1px solid #C9A24D;
   background: $color-background-input-cream-light;
   border-radius: $radius-s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
@@ -38,5 +38,27 @@
   }
 }
 
+.product-picture {
+  width: 100%;
+  height: 240px;
+  border-radius: $radius-s;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.product-info-container {
+  padding: 0 $space-m;
+  // border: solid 2px black;
+  cursor: pointer;
+}
+
+.product-info h3 {
+  margin: 0 0 $space-xs 0;
+  font-size: 1.2rem;
+}
+
+.price {
+  color: $color-text-body;
+}
 
 

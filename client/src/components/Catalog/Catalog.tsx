@@ -2,13 +2,22 @@ import './Catalog.scss';
 
 import type { Product } from '../../types/products';
 import { useEffect, useState } from 'react';
-import { getProducts } from '../../api/products';
+import { createProduct, getProducts } from '../../api/products';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { useWishlist } from '../../context/wishlistContext';
+import { useAuth } from '../../context/useAuth';
+import { ProductModal } from '../ProductModal/ProductModal';
+import type { ProductFormValues } from '../ProductForm/ProductForm';
 
 export const Catalog = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+const { isAdmin } = useAuth();
+
 
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -16,13 +25,15 @@ export const Catalog = () => {
   const [sortBy, setSortBy] = useState<string>('');
   const { wishlist, toggleWishlist } = useWishlist();
 
-
+  //load products
   useEffect(() => {
     getProducts()
       .then((data) => setProducts(data))
       .finally(() => setLoading(false));
   }, []);
 
+
+//handlers
 
 const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = e.target.value;
@@ -44,13 +55,12 @@ const handleIngredientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   );
 };
 
-
-
-
 const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   setSortBy(e.target.value);
 };
 
+
+//filtering
 const filteredProducts = products
   .filter(product => {
     // фільтр по категоріях
@@ -75,17 +85,16 @@ const filteredProducts = products
     // popularity — пізніше коли буде рейтинг
     return 0;
   });
-
-  const handleDeleteProduct = (id: string) => {
-    setProducts(prev => prev.filter(product => product._id !== id));
+  
+    const resetFilters = () => {
+    setSelectedCategories([]);
+    setSelectedIngredients([]);
+    setSortBy('');
   };
-
-
-  const resetFilters = () => {
-  setSelectedCategories([]);
-  setSelectedIngredients([]);
-  setSortBy('');
-};
+  
+    const handleDeleteProduct = (id: string) => {
+      setProducts(prev => prev.filter(product => product._id !== id));
+    };
 
 
 
@@ -99,6 +108,15 @@ const filteredProducts = products
         <div>
           <h1>Catalog</h1>
         </div>
+          {isAdmin && (
+            <button
+              className="dark-btn"
+              onClick={() => setIsCreateOpen(true)}
+            >
+              + Add product
+            </button>
+          )}
+
         <div className='catalog-wrapper-container'>
           <div className='wrapper-filter'>
             <div className='sort-container'>
@@ -290,6 +308,29 @@ const filteredProducts = products
           </div>
 
         </div>
+
+        {isCreateOpen && (
+          <ProductModal
+            isSaving={isSaving}
+            onClose={() => setIsCreateOpen(false)}
+            onSave={async (data: ProductFormValues) => {
+              try {
+                setIsSaving(true);
+
+                const created = await createProduct(data);
+
+                // optimistic prepend
+                setProducts(prev => [created, ...prev]);
+                setIsCreateOpen(false);
+              } catch (e: any) {
+                alert(e.message || 'Failed to create product');
+              } finally {
+                setIsSaving(false);
+              }
+            }}
+          />
+        )}
+
 
       </div>
     </div>

@@ -86,3 +86,24 @@ export const updateProduct = async (
 
   return result;
 };
+
+export const createProduct = async (
+  payload: Omit<Product, '_id' | 'createdAt' | 'updatedAt'>
+): Promise<Product> => {
+  const res = await fetch(BASE_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token()}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message || 'Failed to create product');
+  }
+
+  return result;
+};
