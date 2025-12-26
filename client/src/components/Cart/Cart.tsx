@@ -1,8 +1,21 @@
 import './Cart.scss';
 import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import { apiCheckout } from '../../api/orders';
 
 export const CartPage = () => {
   const { cart, updateQuantity, removeFromCart } = useCart();
+  const navigate = useNavigate();
+
+  const handleCheckout = async () => {
+  try {
+    const { orderId } = await apiCheckout();
+  navigate(`/account/orders/${orderId}`);
+
+  } catch (e: any) {
+    alert(e.message || "Checkout failed");
+  }
+};
 
   const total = cart.reduce(
   (sum, item) => sum + item.productId.price * item.quantity,
@@ -47,7 +60,11 @@ export const CartPage = () => {
             Total: <span>{total.toFixed(2)} €</span>
           </p>
 
-          <button className='checkout-btn'>
+          <button 
+            className='checkout-btn'
+            onClick={handleCheckout} 
+            disabled={!cart.length}
+          >
             Proceed to checkout
           </button>
         </div>

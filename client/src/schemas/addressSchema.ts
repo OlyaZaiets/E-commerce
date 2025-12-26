@@ -1,16 +1,3 @@
-// import { z } from 'zod';
-
-// export const addressSchema = z.object({
-//   country: z.string().min(1, 'Select country'),
-//   postalCode: z.string().min(3, 'Enter postal code'),
-//   region: z.string().min(1, 'Enter region'),
-//   city: z.string().min(1, 'Enter city'),
-//   street: z.string().min(1, 'Enter street'),
-//   building: z.string().min(1, 'Enter house / apartment'),
-// });
-
-// export type AddressInput = z.infer<typeof addressSchema>;
-
 import { z } from 'zod';
 
 const countries = ['Germany', 'Ukraine'] as const;

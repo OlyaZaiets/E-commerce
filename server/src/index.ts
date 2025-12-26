@@ -8,6 +8,7 @@ import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import importProducts from './routes/importProducts';
 import cartRoutes from './routes/cartRoutes';
+import orderRoutes from './routes/orderRoutes';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/import', importProducts);
 app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 
 

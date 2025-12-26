@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface CartType extends Document {
   userId: mongoose.Types.ObjectId;
@@ -12,13 +12,13 @@ const CartSchema: Schema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User', 
-    required: true 
+    required: true,
   },
   
     items: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-      quantity: { type: Number, default: 1 },
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+      quantity: { type: Number, default: 1, min: 1 },
     }
   ]
 }, 
