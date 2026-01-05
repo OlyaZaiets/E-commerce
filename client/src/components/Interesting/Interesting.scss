@@ -1,0 +1,28 @@
+@use '../../styles/variables' as *;
+
+.interesting-context {
+  display: flex;
+  flex-direction: column;
+}
+
+.interesting-text {
+  padding: 10px 0;
+}
+
+.interesting-image-container {
+  display: flex;
+  justify-content: center;
+
+}
+
+.interesting-image {
+max-height: 500px;
+min-width: 900px;
+min-width: 300px;
+
+
+
+
+overflow: hidden;
+
+}

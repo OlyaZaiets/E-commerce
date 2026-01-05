@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+
+.order-info {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.order-info-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}

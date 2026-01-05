@@ -14,6 +14,7 @@ import { CartPage } from './components/Cart/Cart'
 import { ProductDetails } from './components/ProductDetails/ProductDetails'
 import { AddressBook } from './components/AddressBook/AddressBook'
 import { OrderDetailsPage } from './components/OrderDetails/OrderDetails'
+import { Interesting } from './components/Interesting/Interesting'
 
 function App() {
   return (
@@ -22,10 +23,11 @@ function App() {
         <Route element={<MainLayout/>}>
           <Route index element={<HomePage />}/>
           <Route path='catalog' element={ <Catalog />} />
-          <Route path="products/:id" element={<ProductDetails />} />
+          <Route path='products/:id' element={<ProductDetails />} />
           <Route path='login' element={ <Login />} />
           <Route path='registration' element={ <Registration />} />
           <Route path='cart' element={ <CartPage/>} />
+          <Route path='interesting' element={ <Interesting/>} />
 
 
           <Route 
@@ -38,10 +40,10 @@ function App() {
           >
             <Route index element={ <ProfileInfo />} />
             {/* <Route path='orders' element={<OrdersHistory />} /> */}
-            <Route path="orders" element={<OrdersPage />} />
-            <Route path="orders/:id" element={<OrderDetailsPage />} />
+            <Route path='orders' element={<OrdersPage />} />
+            <Route path='orders/:id' element={<OrderDetailsPage />} />
 
-            <Route path="address" element={<AddressBook />} />
+            <Route path='address' element={<AddressBook />} />
             <Route path='wishlist' element={<Wishlist />} />
           </Route>
           

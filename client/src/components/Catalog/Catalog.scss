@@ -78,9 +78,15 @@
 .wrapper-products  {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr 1fr 0.2fr;
+  // grid-template-rows: 1fr 0.2fr;
+  // grid-auto-rows: 1fr;
+  // grid-template-rows: 1fr 1fr 0.2fr;
   gap: $space-s;
   padding-left: $space-l;
+  padding-bottom: $space-l;
+
+  align-content: start;
+  grid-auto-rows: auto; 
 }
 
 // .product-card { 

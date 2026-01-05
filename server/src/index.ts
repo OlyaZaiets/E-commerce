@@ -9,6 +9,7 @@ import authRoutes from './routes/authRoutes';
 import importProducts from './routes/importProducts';
 import cartRoutes from './routes/cartRoutes';
 import orderRoutes from './routes/orderRoutes';
+import commentRoutes from './routes/commentRoutes';
 
 dotenv.config();
 
@@ -28,12 +29,18 @@ app.use(
   })
 );
 
+
 app.use('/api/products', productRoutes);
+app.use('/api/products', commentRoutes);
+
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/import', importProducts);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+
+
+
 
 
 

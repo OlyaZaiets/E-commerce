@@ -9,6 +9,7 @@ import { getProductById, updateProduct, updateProductPrice } from '../../api/pro
 import { useAuth } from '../../context/useAuth';
 import { ProductModal } from '../ProductModal/ProductModal';
 import type { ProductFormValues } from '../ProductForm/ProductForm';
+import { ProductComments } from '../ProductComments/ProductComments';
 
 
 export const ProductDetails = () => {
@@ -171,7 +172,10 @@ export const ProductDetails = () => {
         />
       )}
 
+      <ProductComments productId={product._id} />
+
     
     </div>
+
   )
 }

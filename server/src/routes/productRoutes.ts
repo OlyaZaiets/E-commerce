@@ -11,10 +11,10 @@ router.get('/', getProducts);
 router.get('/:id', getProductById);
 
 //admin
-router.use(authMiddleware, requireAuth, requireAdmin);
-router.post('/', createProduct);
-router.patch('/:id', updateProduct);
-router.delete('/:id', deleteProduct);
+// router.use(authMiddleware, requireAuth, requireAdmin);
+router.post('/',authMiddleware, requireAuth, requireAdmin, createProduct);
+router.patch('/:id', authMiddleware, requireAuth, requireAdmin, updateProduct);
+router.delete('/:id', authMiddleware, requireAuth, requireAdmin, deleteProduct);
 
 
 export default router;

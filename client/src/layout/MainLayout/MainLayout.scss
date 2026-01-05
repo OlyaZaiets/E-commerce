@@ -1,5 +1,13 @@
 @use '../../styles/variables' as *;
 
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .main {
+  flex: 1; // ⬅️ ключовий рядок
   width: 100%;
+  background-color: #F4EDE2;
 }

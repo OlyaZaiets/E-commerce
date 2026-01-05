@@ -1,0 +1,29 @@
+<svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path 
+    d="M30 15H55L75 35V80C75 83.3137 72.3137 86 69 86H31C27.6863 86 25 83.3137 25 80V20C25 17.2386 27.2386 15 30 15Z" 
+    stroke="#F5D25F" 
+    stroke-width="5" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+  />
+  
+  <path 
+    d="M55 15V35H75" 
+    stroke="#F5D25F" 
+    stroke-width="5" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+  />
+  
+  <line x1="35" y1="45" x2="65" y2="45" stroke="#F5D25F" stroke-width="4" stroke-linecap="round" />
+  
+  <circle cx="43" cy="65" r="3" fill="#F5D25F"/>
+  <circle cx="57" cy="65" r="3" fill="#F5D25F"/>
+  
+  <path 
+    d="M45 74C47 76 53 76 55 74" 
+    stroke="#F5D25F" 
+    stroke-width="3.5" 
+    stroke-linecap="round"
+  />
+</svg>

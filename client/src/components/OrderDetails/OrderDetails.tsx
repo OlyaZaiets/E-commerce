@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiGetOrderById } from "../../api/orders";
 import type { OrderDetails } from "../../types/orders";
+import './OrderDetails.scss';
 
 export const OrderDetailsPage = () => {
   const { id } = useParams();
@@ -28,8 +29,8 @@ export const OrderDetailsPage = () => {
 
       <h2>Items</h2>
       {order.items.map((i) => (
-        <div key={i.productId} style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 10 }}>
-          <img src={i.imageUrl} alt={i.title} style={{ width: 60, height: 60, objectFit: "cover", borderRadius: 8 }} />
+        <div key={i.productId} className="order-info">
+          <img src={i.imageUrl} alt={i.title} className="order-info-img" />
           <div style={{ flex: 1 }}>
             <div><b>{i.title}</b></div>
             <div>{i.quantity} × {i.price.toFixed(2)} €</div>
