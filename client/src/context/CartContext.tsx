@@ -17,7 +17,7 @@ interface CartContextType {
   removeFromCart: (productId: string) => Promise<void>;
   cartCount: number;
   clearCart: () => void;
-  refreshCart: () => void;
+  refreshCart: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -35,8 +35,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     refreshCart();
   }, [isLoggedInUser]);
-
-
 
   const addToCart = async (productId: string) => {
     await apiAddToCart(productId);
@@ -56,7 +54,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const clearCart = () => {
     setCart([]);
   };
-
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 

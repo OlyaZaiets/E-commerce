@@ -1,7 +1,7 @@
 import './Catalog.scss';
 
 import type { Product } from '../../types/products';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createProduct, getProducts } from '../../api/products';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { useWishlist } from '../../context/wishlistContext';
@@ -16,14 +16,15 @@ export const Catalog = () => {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-const { isAdmin } = useAuth();
-
-
+  const { isAdmin } = useAuth();
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<string>('');
   const { wishlist, toggleWishlist } = useWishlist();
+
+  const ITEMS_PER_PAGE = 6;
+  const [page, setPage] = useState(1);
 
   //load products
   useEffect(() => {
@@ -60,45 +61,57 @@ const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 };
 
 
-//filtering
-const filteredProducts = products
-  .filter(product => {
-    // фільтр по категоріях
-    if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
-      return false;
-    }
+const filteredProducts = useMemo(() => {
+  return products
+    .filter(product => {
+      if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
+        return false;
+      }
 
-    // фільтр по інгредієнтах
-    if (selectedIngredients.length > 0) {
-      const hasIngredient = selectedIngredients.every(ing =>
-        product.ingredients.includes(ing)
-      );
+      if (selectedIngredients.length > 0) {
+        const hasIngredient = selectedIngredients.every(ing =>
+          product.ingredients.includes(ing)
+        );
+        if (!hasIngredient) return false;
+      }
 
-      if (!hasIngredient) return false;
-    }
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'price') return a.price - b.price;
+      if (sortBy === 'newest') return b._id.localeCompare(a._id);
+      return 0;
+    });
+}, [products, selectedCategories, selectedIngredients, sortBy]);
 
-    return true;
-  })
-  .sort((a, b) => {
-    if (sortBy === 'price') return a.price - b.price;
-    if (sortBy === 'newest') return b._id.localeCompare(a._id);
-    // popularity — пізніше коли буде рейтинг
-    return 0;
-  });
-  
-    const resetFilters = () => {
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [selectedCategories, selectedIngredients, sortBy]);
+
+  const resetFilters = () => {
     setSelectedCategories([]);
     setSelectedIngredients([]);
     setSortBy('');
+    setPage(1);
   };
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [page]);
   
-    const handleDeleteProduct = (id: string) => {
-      setProducts(prev => prev.filter(product => product._id !== id));
-    };
-
-
-
-
+  const handleDeleteProduct = (id: string) => {
+    setProducts(prev => prev.filter(product => product._id !== id));
+  };
 
   if (loading) return <p>Loading...</p>;
 
@@ -110,7 +123,7 @@ const filteredProducts = products
         </div>
           {isAdmin && (
             <button
-              className="dark-btn"
+              className='dark-btn'
               onClick={() => setIsCreateOpen(true)}
             >
               + Add product
@@ -289,13 +302,13 @@ const filteredProducts = products
           </div>
 
           <div className='wrapper-products'>
-          {filteredProducts.length === 0 ? (
-            <div className="empty-state">
+          {paginatedProducts.length === 0 ? (
+            <div className='empty-state'>
               <p>No dishes match your filters.</p>
               <button onClick={resetFilters}>Reset filters</button>
             </div>
           ) : (
-            filteredProducts.map((item) => (
+            paginatedProducts.map((item) => (
               <ProductCard 
                 key={item._id}
                 item={item}
@@ -307,6 +320,29 @@ const filteredProducts = products
           )}
           </div>
 
+          {filteredProducts.length > 0 && totalPages > 1 && (
+            <div className='pagination'>
+              <button
+                className='dark-btn-pagination'
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={page === 1}
+              >
+                Prev
+              </button>
+
+              <span className='pagination-info'>
+                Page {page} of {totalPages}
+              </span>
+
+              <button
+                className='dark-btn-pagination'
+                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
 
         {isCreateOpen && (
@@ -330,8 +366,6 @@ const filteredProducts = products
             }}
           />
         )}
-
-
       </div>
     </div>
   )

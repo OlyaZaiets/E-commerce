@@ -10,7 +10,6 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-
 }
 
 .header-logo, .header-nav, .header-icons-container {
@@ -42,14 +41,10 @@
 .header-icons {
   position: relative;
   color: $color-text-on-dark;
-
-  //reset для button
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-
-  // вирівнювання іконки
   display: flex;
   align-items: center;
   justify-content: center;

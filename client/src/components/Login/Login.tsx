@@ -4,13 +4,10 @@ import { GoogleLogo } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import { loginSchema, type LoginInputForm } from '../../schemas/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginUser } from '../../api/auth';
+import { googleAuth, loginUser } from '../../api/auth';
 import { useState } from 'react';
 import { useAuth } from '../../context/useAuth';
-
-
-
-
+import { useGoogleLogin } from '@react-oauth/google';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +28,7 @@ export const Login = () => {
 
       login(result.token, result.role);
 
-      navigate('/');
+      navigate('/account');
       
     } catch (error: any) {
       console.error(error)
@@ -39,10 +36,25 @@ export const Login = () => {
     }
   }
 
+  const googleLogin = useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      const result = await googleAuth(tokenResponse.access_token);
+
+      await login(result.token, result.role);
+      navigate('/account');
+    } catch (e: any) {
+      console.error(e);
+      setServerError(e.message || 'Google login failed');
+    }
+  },
+  onError: () => setServerError('Google login failed'),
+});
+
+
   return (
     <div className='auth-wrapper'>
       <div className='auth-container'>
-
         <div className='auth-wrapper-container'>
           <div className='auth-title-text'>
             <h1>Welcome Back </h1>
@@ -50,8 +62,7 @@ export const Login = () => {
           </div>
           <div className="quick-registration">
             <p className="quick-registration-title">Quick login via:</p>
-
-            <button type="button" className="google-btn">
+            <button type="button" className="google-btn" onClick={() => googleLogin()}>
               <GoogleLogo size={24} />
               <span>Google</span>
             </button>
@@ -86,7 +97,6 @@ export const Login = () => {
             {errors.password && (
               <p className="error-message">{errors.password.message}</p>
             )}
-
             <button type='submit' className='dark-btn'>Log In</button>
           </form>
           <p className='question-to-link'>New to Ukrainian Taste?</p> 

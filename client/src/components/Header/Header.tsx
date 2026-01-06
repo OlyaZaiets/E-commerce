@@ -7,8 +7,6 @@ import { useWishlist } from '../../context/wishlistContext';
 import { useState } from 'react';
 import { SearchModal } from '../SearchModal/SearchModal';
 
-
-
 export const Header = () => {
   const { isLoggedInUser} = useAuth();
   const { cartCount } = useCart();
@@ -91,7 +89,6 @@ const handleWishlistClick = (e: any) => {
             className='header-icons' 
             to={isLoggedInUser ? '/account': '/login' }
             title={isLoggedInUser ? 'Account' : 'Login'}
-
           >
             <User size={32} />
           </NavLink>

@@ -50,7 +50,13 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({message: 'Invalid email or password'})
     }
 
+    if (!user.password) {
+      return res.status(401).json({
+        message: 'This account uses Google sign-in. Please continue with Google.',
+      });
+    }
     const isMatchPassword = await bcrypt.compare(password, user.password);
+    
     if(!isMatchPassword) {
       return res.status(401).json({message: 'Invalid email or password'})
     }
@@ -74,3 +80,61 @@ export const login = async (req: Request, res: Response) => {
   }
 
 }
+
+export const googleAuth = async (req: Request, res: Response) => {
+  try {
+    const { accessToken } = req.body;
+
+    if (!accessToken) {
+      return res.status(400).json({ message: 'No accessToken provided' });
+    }
+
+    const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    const googleUser = await r.json();
+
+    if (!r.ok) {
+      return res.status(401).json({ message: 'Invalid Google access token' });
+    }
+
+    const { sub, email, name } = googleUser;
+
+    if (!email) {
+      return res.status(401).json({ message: 'Google account has no email' });
+    }
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        fullName: name || email,
+        email,
+        provider: 'google',
+        googleId: sub || '',
+        role: 'user',
+      });
+    } else {
+      // optional: link Google to existing account
+      if (!user.googleId) user.googleId = sub || '';
+
+      if (user.provider !== 'google') user.provider = user.provider || 'local';
+      await user.save();
+    }
+
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '7d' }
+    );
+
+    return res.json({
+      message: 'Google auth successful',
+      token,
+      role: user.role,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Google auth failed', error });
+  }
+};

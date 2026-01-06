@@ -14,8 +14,6 @@ interface Props {
   onDelete?: (id: string) => void;
 }
 
-
-
 export const ProductCard = ({ item, wishlist, toggleWishlist, onDelete } : Props) => {
   const { addToCart } = useCart();
   const { isLoggedInUser, isAdmin } = useAuth();
@@ -43,7 +41,7 @@ export const ProductCard = ({ item, wishlist, toggleWishlist, onDelete } : Props
 
     if (!onDelete) return; 
 
-    if (!confirm(`Delete "${item.title}"?`)) return;
+    if (!confirm(`Delete '${item.title}'?`)) return;
 
     try {
       await deleteProduct(item._id);
@@ -54,8 +52,6 @@ export const ProductCard = ({ item, wishlist, toggleWishlist, onDelete } : Props
       alert(err.message || 'Delete failed');
     }
   };
-
-
 
   return (
     <div className='product-card' key={item._id}>
@@ -77,7 +73,7 @@ export const ProductCard = ({ item, wishlist, toggleWishlist, onDelete } : Props
           <p className='price'>{item.price}€ pro 100 g </p>
         </div>
       </div>
-      <div className="button-wrapper">
+      <div className='button-wrapper'>
         <button 
           className='dark-btn' 
           onClick={handleAddToCart}
@@ -86,7 +82,7 @@ export const ProductCard = ({ item, wishlist, toggleWishlist, onDelete } : Props
         </button>
         {isAdmin && onDelete && (
           <button
-            className="admin-delete-btn"
+            className='admin-delete-btn'
             onClick={handleDelete}
           >
             Delete

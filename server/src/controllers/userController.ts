@@ -104,8 +104,6 @@ export const deleteUser = async (req: Request, res: Response) =>  {
 
 export const getMe = async (req: Request, res: Response) => {
   try {
-    // const authReq = req as AuthRequest; 
-    // const userId = authReq.user.id;
     const user = await User.findById(req.user?.id).select('-password');
 
     if (!user) {
@@ -141,6 +139,11 @@ export const updateUserProfile = async (req: Request, res: Response) => {
       if (!oldPassword) {
         return res.status(400).json({ message: 'Old password is required' });
       }
+
+    if (!user.password) {
+      return res.status(401).json({ message: 'Use Google sign-in for this account.' });
+    }
+
 
       const isMatch = await bcrypt.compare(oldPassword, user.password);
       if (!isMatch) {

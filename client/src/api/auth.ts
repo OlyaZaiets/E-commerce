@@ -35,3 +35,17 @@ export const loginUser = async (data: LoginPayload) => {
 
   return result;
 }
+
+const BASE_URL = 'http://localhost:5000/api';
+
+export const googleAuth = async (accessToken: string) => {
+  const res = await fetch(`${BASE_URL}/auth/google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ accessToken }),
+  });
+
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || 'Google auth failed');
+  return result; // { token, role, ... }
+};

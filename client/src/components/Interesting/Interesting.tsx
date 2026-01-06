@@ -1,6 +1,5 @@
 import './Interesting.scss';
 
-
 export const Interesting = () => { 
   return (
     <div className='interesting-container'>

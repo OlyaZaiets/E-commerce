@@ -4,7 +4,6 @@ import { ArrayEditor } from '../ArrayEditor/ArrayEditor';
 import { useForm, Controller } from 'react-hook-form';
 import { uploadToCloudinary } from '../../utils/cloudinary';
 
-
 type ProductFormValues = {
   title: string;
   description: string;
@@ -13,7 +12,6 @@ type ProductFormValues = {
   tags: string[];
   ingredients: string[];
 };
-
 
 interface EditProductModalProps {
   product: Product;
@@ -41,15 +39,12 @@ const {
   },
 });
 
-
   const onSubmit = (data: ProductFormValues) => {
     onSave({
       ...product,
       ...data,
     });
   };
-
-
 
   return (
     <div className="modal-backdrop" onClick={!isSaving ? onClose : undefined}>
@@ -100,7 +95,6 @@ const {
               className="image-preview"
             />
           )} */}
-
 
           <Controller 
             control={control}

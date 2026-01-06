@@ -6,13 +6,13 @@ import { useForm } from 'react-hook-form';
 import { registrationSchema, type RegistrationInputForm } from '../../schemas/RegistrationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import PhoneInput from 'react-phone-number-input';
-import { registerUser } from '../../api/auth';
-
-
-// import { useAuth } from '../../context/AuthContext';
+import { googleAuth, registerUser } from '../../api/auth';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useAuth } from '../../context/useAuth';
 
 export const Registration = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const { register, handleSubmit, setValue, watch,  formState: { errors } } = useForm<RegistrationInputForm>({
     resolver: zodResolver(registrationSchema),
@@ -23,17 +23,29 @@ const navigate = useNavigate();
     try {
       const result = await registerUser (payload)
 
-      localStorage.setItem('token', result.token);
-      localStorage.setItem('role', result.role);
+      await login(result.token, result.role);
+      navigate('/account'); // або /profile /account якщо є
 
-
-      navigate('/');
     } catch (error: any) {
       console.error(error.message);
       alert(error.message);
     }
   }
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const result = await googleAuth(tokenResponse.access_token);
+
+        await login(result.token, result.role);
+
+        navigate('/account');
+      } catch (e: any) {
+        alert(e.message);
+      }
+    },
+    onError: () => alert('Google login failed'),
+  });
 
   return (
     <div className='auth-wrapper'>
@@ -46,7 +58,7 @@ const navigate = useNavigate();
           <div className='quick-registration'>
             <p className='quick-registration-title'>Quick registration via:</p>
 
-            <button type='button' className='google-btn'>
+            <button type='button' className='google-btn' onClick={() => googleLogin()}>
               <GoogleLogo size={24} />
               <span>Google</span>
             </button>
@@ -151,12 +163,14 @@ const navigate = useNavigate();
               <p className='error-message'>{errors.privacy.message}</p>
             )}
 
-            <div className='captcha-placeholder'>
+            {/* <div className='captcha-placeholder'>
               <div className='captcha-checkbox'></div>
               <p>I'm not a robot</p>
+            </div> */}
+            <div className='checkbox-row-button'>
+              <button className='dark-btn' type='submit'>Create Account</button>
             </div>
 
-            <button className='dark-btn' type='submit'>Create Account</button>
         </form >
           <p className='question-to-link'>Already have an account?</p> 
           <Link to='/login' className='auth-link'>Log In Here</Link>

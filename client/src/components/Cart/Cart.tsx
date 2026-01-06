@@ -4,16 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { apiCheckout } from '../../api/orders';
 
 export const CartPage = () => {
-  const { cart, updateQuantity, removeFromCart } = useCart();
+  const { cart, updateQuantity, removeFromCart, clearCart, refreshCart } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = async () => {
   try {
     const { orderId } = await apiCheckout();
-  navigate(`/account/orders/${orderId}`);
+    clearCart();
+    await refreshCart();
+
+    navigate(`/account/orders/${orderId}`);
 
   } catch (e: any) {
-    alert(e.message || "Checkout failed");
+    alert(e.message || 'Checkout failed');
   }
 };
 

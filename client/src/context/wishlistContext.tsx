@@ -21,8 +21,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const [wishlistProducts, setWishlistProducts] = useState<Product[]>([]);
   const { token } = useAuth();
 
-
-
   const refreshWishlist = () => {
     getWishlist().then((items: Product[]) => {
       setWishlist(items.map(item => item._id));
@@ -41,8 +39,8 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const clearWishlist = () => {
-  setWishlist([]);
-  setWishlistProducts([]);
+    setWishlist([]);
+    setWishlistProducts([]);
   };
 
   useEffect(() => {
@@ -50,12 +48,9 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     // user logged in → load wishlist
     refreshWishlist();
   } else {
-    // user logged out → clear wishlist
     clearWishlist();
   }
 }, [token]);
-
-
 
   return (
     <WishlistContext.Provider

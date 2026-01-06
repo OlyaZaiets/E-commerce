@@ -2,18 +2,12 @@
 
 .footer-container {
   background-color: $color-footer-dark;
-
 }
 
 .footer-inner {
   height: $footer-height;
   color: $color-text-on-dark;
-  // border: solid 2px red;
-  // border: solid 1px orange;
   margin: 0 auto;
-  // display: flex;
-  // align-items: center;
-  // justify-content: space-between;
 }
 
 .footer-title {
@@ -55,8 +49,6 @@
 }
 
 .dev-info {
-  // border: solid 1px orangered;
-
   h3 {
     padding: 10px 0;
   }

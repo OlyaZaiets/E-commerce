@@ -13,11 +13,11 @@ export const AddressBook = () => {
     formState: {
       errors,
       isSubmitting,
-      submitCount, // ✅ КЛЮЧОВЕ
+      submitCount, // КЛЮЧОВЕ
     },
   } = useForm<AddressInput>({
     resolver: zodResolver(addressSchema),
-    mode: 'onSubmit', // ✅ важливо
+    mode: 'onSubmit', // важливо
     defaultValues: {
       country: 'Germany',
       postalCode: '',
@@ -28,7 +28,7 @@ export const AddressBook = () => {
     },
   });
 
-  const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(true);
 
 useEffect(() => {
   getAddress()
@@ -42,7 +42,7 @@ useEffect(() => {
         return;
       }
 
-      reset(parsed.data); // ✅ тип гарантований
+      reset(parsed.data); // тип гарантований
     })
     .catch(console.error)
     .finally(() => setLoading(false));
@@ -60,7 +60,7 @@ const onSubmit = async (data: AddressInput) => {
       return;
     }
 
-    reset(parsed.data); // ✅ типи 100% сходяться
+    reset(parsed.data); //типи 100% сходяться
 
     alert('Address saved successfully!');
   } catch (error: any) {
@@ -76,7 +76,7 @@ const onSubmit = async (data: AddressInput) => {
     <div>
       <h2>Address Book</h2>
 
-      {/* ✅ БЕЗ кастомної логіки */}
+      {/* БЕЗ кастомної логіки */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="address-grid">
           <div>

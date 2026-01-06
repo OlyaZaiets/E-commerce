@@ -50,7 +50,6 @@
   }
 }
 
-
 .food-category,
 .food-ingredients {
   display: flex;
@@ -74,13 +73,16 @@
   }
 }
 
+.pagination  {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.wrapper-products  {
+.wrapper-products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  // grid-template-rows: 1fr 0.2fr;
-  // grid-auto-rows: 1fr;
-  // grid-template-rows: 1fr 1fr 0.2fr;
   gap: $space-s;
   padding-left: $space-l;
   padding-bottom: $space-l;
@@ -89,79 +91,6 @@
   grid-auto-rows: auto; 
 }
 
-// .product-card { 
-//   border: solid 2px red;
-//   background: $color-background-input-cream-light;
-//   border-radius: 12px;
-//   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-//   // overflow: hidden;
-//   border: none;
-//   transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-//   &:hover {
-//     transform: translateY(-3px);
-//     box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-//   }
-// }
-
-// .tags-fav-container {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 8px 10px;
-
-// }
-
-// .tags-container {
-//   display: flex;
-//   gap: 10px;
-// }
-
-// .product-label {
-//   padding: 3px 8px;
-//   border-radius: $radius-s;
-//   font-size: 12px;
-//   font-weight: 600;
-//   display: inline-block;
-//   text-transform: uppercase;
-
-//   &--new {
-//     background-color: $color-gold-light;
-//     color: $color-text-body;
-//   }
-
-//   &--popular,
-//   &--hot {
-//     background-color: #D26A5A;
-//     color: #fff;
-//   }
-
-//   &--traditional {
-//     background-color: #A8B86F;
-//     color: $color-heading;
-//   }
-
-//   &--classic {
-//     background-color: $color-cream-separate-liner;
-//     color: $color-text-body;
-//   }
-
-//   // &--regional {
-//   //   background-color: #364F2A;
-//   //   color: #fff;
-//   // }
-// }
-
-
-
-
-// .product-picture {
-//   width: 100%;
-//   height: 240px;
-//   object-fit: cover;
-//   border-bottom: 1px solid rgba(0,0,0,0.05);
-// }
-
-// .favorite-btn {
-//   cursor: pointer;
-// }
+.pagination-info {
+  padding: 0 10px;
+}

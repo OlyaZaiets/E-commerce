@@ -7,7 +7,7 @@ interface AuthContextType {
   isLoggedInUser: boolean;
   isAdmin: boolean;
   user: any | null;
-  login: (token: string, role: string) => void;
+  login: (token: string, role: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -30,9 +30,14 @@ export const AuthProvider = ( {children } : {children: React.ReactNode}) => {
     setToken(newToken);
     setRole(newRole);
 
-    const profile = await getProfile();
-    setUser(profile);
-};
+    try {
+      const profile = await getProfile();
+      setUser(profile);
+    } catch (e) {
+      console.error('Profile load failed:', e);
+      setUser(null);
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem('token');

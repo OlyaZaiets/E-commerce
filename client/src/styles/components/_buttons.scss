@@ -2,13 +2,30 @@
 
 .dark-btn {
   width: 90%;
-  // max-width: 400px;
-  // min-width: 200px;
   background-color: $color-dark-btn;
   padding: 8px 12px;
   border-radius: 8px;
   border: $color-dark-btn-border;
-  // margin: 20px 0;
+
+  margin: $space-m 0;
+  cursor: pointer;
+  color: $color-text-on-dark;
+  transition: 0.25s ease;
+
+  &:hover {
+    background-color: $color-dark-btn-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px $color-input-box-shadow; 
+    border: $color-dark-btn-border-hover;
+  }
+}
+
+.dark-btn-pagination {
+  width: 20%;
+  background-color: $color-dark-btn;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: $color-dark-btn-border;
   margin: $space-m 0;
   cursor: pointer;
   color: $color-text-on-dark;
