@@ -13,6 +13,8 @@ export const Header = () => {
   const { wishlistCount } = useWishlist();
   const navigate = useNavigate();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
   const handleCartClick = (e: any) => {
   if (!isLoggedInUser) {
@@ -36,25 +38,35 @@ const handleWishlistClick = (e: any) => {
         <div className='header-logo'>
           <NavLink
             className={({isActive}) => isActive ? 'nav-link header-logo  active' : 'nav-link'}
-            to='/'>
+            to='/'
+            onClick={() => setIsMenuOpen(false)}
+          >
             <h2>UKRAINIAN <br></br> TASTE</h2>
           </NavLink>
         </div>
-        <nav className='header-nav'>
-
+        <nav className={`header-nav ${isMenuOpen ? 'open' : ''}`}>
           <NavLink 
             to='catalog'
             className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}
+            onClick={() => setIsMenuOpen(false)}
             >
               Catalog
             </NavLink>
           <NavLink 
             to='interesting'
             className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}
+            onClick={() => setIsMenuOpen(false)}
             >
               Interesting
             </NavLink>
         </nav>
+        <button
+        className='burger'
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            ☰
+        </button>
+
         <div className='header-icons-container'>
           <button 
             className='header-icons' 

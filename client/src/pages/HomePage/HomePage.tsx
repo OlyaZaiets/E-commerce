@@ -1,4 +1,4 @@
-import { Slider } from "../../components/Slider/Slider"
+import { Slider } from '../../components/Slider/Slider'
 import './HomePage.scss';
 import StarIcon from '../../assets/icons/Star.svg?react';
 import CandleIcon from '../../assets/icons/Candle.svg?react';
@@ -9,14 +9,14 @@ import CandleIcon from '../../assets/icons/Candle.svg?react';
 export const HomePage = () => {
   return (
     <div className='homepage-container'>
-      <div className="container homepage-inner">
+      <div className='container homepage-inner'>
         <div className='homepage-slider'>
           <Slider />
         </div>
-        <div className="homepage-idea">
+        <div className='homepage-idea'>
           <h3>Our Idea</h3>
-          <div className="homepage-text">
-            <StarIcon className="idea-icon idea-icon-star" />
+          <div className='homepage-text'>
+            <StarIcon className='idea-icon idea-icon-star' />
             <p>Christmas is not only about dishes on the table — it is about gathering with loved ones, creating an atmosphere of comfort, joy, and togetherness.
               In Ukrainian homes, the holiday spirit comes alive through meaningful conversations, laughter, and the aromas of familiar foods that remind us of 
               family traditions passed down through generations. 
@@ -28,7 +28,7 @@ export const HomePage = () => {
               discovering these traditions for the first time, our foods bring the warmth, comfort, and magic of Ukrainian festive cuisine straight to your 
               home — ready to order and easy to serve.
             </p>
-              <CandleIcon className="idea-icon idea-icon-candle" />
+              <CandleIcon className='idea-icon idea-icon-candle' />
           </div>
 
         </div>

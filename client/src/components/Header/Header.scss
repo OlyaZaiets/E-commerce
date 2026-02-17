@@ -2,6 +2,8 @@
 
 .header-container {
   background-color:  $color-header-brown;
+  position: relative;
+  z-index: 1000;
 }
 
 .header-inner {
@@ -25,6 +27,7 @@
 .header-nav {
   display: flex;
   justify-content: space-evenly;
+  z-index: 1001;
 }
 
 .nav-link {
@@ -87,5 +90,74 @@
 
   .cart {
     background: #F4D35E;
+  }
+}
+
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* ===== TABLET ===== */
+@media (max-width: 1024px) {
+  .header-inner {
+    padding: 0 20px;
+  }
+
+  .header-logo h2 {
+    font-size: 16px;
+  }
+
+  .nav-link {
+    font-size: 16px;
+  }
+}
+
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  .header-inner {
+    justify-content: space-between;
+  }
+
+  .header-nav {
+    position: absolute;
+    top: $header-height;
+    left: 0;
+    width: 100%;
+    background: $color-header-brown;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none;
+  }
+
+  .burger {
+  display: block;
+  }
+
+  .header-nav.open {
+    display: flex;
+  }
+
+  .header-logo {
+    flex: unset;
+  }
+
+  .header-icons-container {
+    flex: unset;
+    gap: 12px;
+  }
+
+  .header-logo h2 {
+    font-size: 14px;
+    text-align: left;
   }
 }
