@@ -22,7 +22,7 @@ E-commerce web application bringing authentic Ukrainian dishes and festive meals
 
 ## 👩‍💻 Admin Access (Demo)
 
-- **Email: olga@email.com  
-- **Password: 123456 
+- Email: olga@email.com  
+- Password: 123456 
 
 Explore catalog management features and see the admin panel in action.
