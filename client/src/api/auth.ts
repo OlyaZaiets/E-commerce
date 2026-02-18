@@ -1,7 +1,9 @@
 import type { LoginPayload, RegisterPayload } from '../types/auth';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export const registerUser = async (data: RegisterPayload) => {
-  const response = await fetch('http://localhost:5000/api/auth/register', {
+  const response = await fetch(`${BASE_URL}/auth/register`, {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
@@ -19,7 +21,7 @@ export const registerUser = async (data: RegisterPayload) => {
 }
 
 export const loginUser = async (data: LoginPayload) => {
-  const response = await fetch('http://localhost:5000/api/auth/login', {
+  const response = await fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +38,6 @@ export const loginUser = async (data: LoginPayload) => {
   return result;
 }
 
-const BASE_URL = 'http://localhost:5000/api';
 
 export const googleAuth = async (accessToken: string) => {
   const res = await fetch(`${BASE_URL}/auth/google`, {

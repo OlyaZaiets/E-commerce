@@ -1,8 +1,9 @@
-const BASE_URL = 'http://localhost:5000/api/cart';
+const BASE_URL = import.meta.env.VITE_API_URL;
+// const BASE_URL = 'http://localhost:5000/api/cart';
 const token = () => localStorage.getItem('token');
 
 export const apiGetCart = async () => {
-  const res = await fetch(`${BASE_URL}`, {
+  const res = await fetch(`${BASE_URL}/cart`, {
     headers: {
       Authorization: `Bearer ${token()}`,
     },
@@ -14,7 +15,7 @@ export const apiGetCart = async () => {
 };
 
 export const apiAddToCart = async (productId: string) => {
-  const res = await fetch(`${BASE_URL}/add`, {
+  const res = await fetch(`${BASE_URL}/cart/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +30,7 @@ export const apiAddToCart = async (productId: string) => {
 };
 
 export const apiUpdateQuantity = async (productId: string, quantity: number) => {
-  const res = await fetch(`${BASE_URL}/${productId}`, {
+  const res = await fetch(`${BASE_URL}/cart/${productId}`, {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export const apiUpdateQuantity = async (productId: string, quantity: number) => 
 }
 
 export const apiRemoveFromCart = async (productId: string) => {
-  const res = await fetch(`${BASE_URL}/remove/${productId}`, {
+  const res = await fetch(`${BASE_URL}/cart/remove/${productId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token()}`,

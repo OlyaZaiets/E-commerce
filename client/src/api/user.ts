@@ -1,7 +1,8 @@
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const getProfile = async () => {
   const token = localStorage.getItem('token');
 
-  const response = await fetch('http://localhost:5000/api/users/me', {
+  const response = await fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -20,7 +21,7 @@ export const getProfile = async () => {
 export const updateProfile = async (data: any) => {
   const token = localStorage.getItem('token');
 
-  const response = await fetch('http://localhost:5000/api/users/me', {
+  const response = await fetch(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

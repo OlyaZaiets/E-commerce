@@ -1,6 +1,8 @@
 import type { OrderDetails, OrderHistoryItem } from "../types/orders";
 
-const BASE_URL = 'http://localhost:5000/api/orders';
+const BASE_URL = import.meta.env.VITE_API_URL;
+// const BASE_URL = 'http://localhost:5000/api/orders';
+
 const token = () => localStorage.getItem('token');
 
 export type CheckoutResponse = {
@@ -9,7 +11,7 @@ export type CheckoutResponse = {
 };
 
 export const apiCheckout = async (): Promise<CheckoutResponse> => {
-  const res = await fetch(`${BASE_URL}/checkout`, {
+  const res = await fetch(`${BASE_URL}/orders/checkout`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token()}`,
@@ -23,7 +25,7 @@ export const apiCheckout = async (): Promise<CheckoutResponse> => {
 };
 
 export const apiGetOrders = async (): Promise<OrderHistoryItem[]> => {
-  const res = await fetch(`${BASE_URL}`, {
+  const res = await fetch(`${BASE_URL}/orders`, {
     headers: {
       Authorization: `Bearer ${token()}`,
     },
@@ -36,7 +38,7 @@ export const apiGetOrders = async (): Promise<OrderHistoryItem[]> => {
 };
 
 export const apiGetOrderById = async (id: string): Promise<OrderDetails> => {
-  const res = await fetch(`${BASE_URL}/${id}`, {
+  const res = await fetch(`${BASE_URL}/orders/${id}`, {
     headers: {
       Authorization: `Bearer ${token()}`,
     },

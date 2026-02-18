@@ -1,9 +1,10 @@
 import type { Product } from '../types/products';
-const BASE_URL = 'http://localhost:5000/api/products';
+const BASE_URL = import.meta.env.VITE_API_URL;
+// const BASE_URL = 'http://localhost:5000/api/products';
 const token = () => localStorage.getItem('token');
 
 export const getProducts = async (): Promise<Product[]> => {
-  const response = await fetch(BASE_URL);
+  const response = await fetch(`${BASE_URL}/products`);
 
   const result = await response.json();
 
@@ -15,7 +16,7 @@ export const getProducts = async (): Promise<Product[]> => {
 }
 
 export const getProductById = async (id: string): Promise<Product> => {
-  const response = await fetch(`${BASE_URL}/${id}`);
+  const response = await fetch(`${BASE_URL}/products/${id}`);
 
   const result = await response.json();
 
@@ -27,7 +28,7 @@ export const getProductById = async (id: string): Promise<Product> => {
 }
 
 export const deleteProduct = async (id: string): Promise<Product> => {
-  const response = await fetch(`${BASE_URL}/${id}`, {
+  const response = await fetch(`${BASE_URL}/products/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token()}`,
@@ -47,7 +48,7 @@ export const updateProductPrice = async (
   id: string,
   price: number
 ): Promise<Product> => {
-  const response = await fetch(`${BASE_URL}/${id}`, {
+  const response = await fetch(`${BASE_URL}/products/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ export const updateProduct = async (
   id: string,
   payload: Partial<Product>
 ): Promise<Product> => {
-  const response = await fetch(`${BASE_URL}/${id}`, {
+  const response = await fetch(`${BASE_URL}/products/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ export const updateProduct = async (
 export const createProduct = async (
   payload: Omit<Product, '_id' | 'createdAt' | 'updatedAt'>
 ): Promise<Product> => {
-  const res = await fetch(BASE_URL, {
+  const res = await fetch(`${BASE_URL}/products`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
