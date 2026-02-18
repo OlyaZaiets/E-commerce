@@ -2,7 +2,7 @@
 
 E-commerce web application bringing authentic Ukrainian dishes and festive meals straight to your home. Browse the catalog, view product details, add items to cart or wishlist, and enjoy a smooth shopping experience.
 
-**Live Demo 🍽️**
+# [**Live Demo – E-commerce**](https://e-commerce-dusky-alpha-32.vercel.app/) 🎬
 
 ---
 
